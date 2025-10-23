@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# **Kaizen Digital Labs**
+<i>"Building digital solutions that evolve with purpose."</i>
 
-First, run the development server:
+</div>
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧭 Overview
+The **Kaizen Digital Labs** company profile website showcases who we are and what we stand for — a digital creative driven by the spirit of continuous improvement.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+We merge the timeless *Kaizen* philosophy with modern technology to deliver adaptive, data-driven, and user-centered digital experiences for startups, MSMEs, and online businesses undergoing digital transformation.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Core Principles
+- Continuous iteration and innovation
+- Data-driven product decisions
+- Design built around user empathy
+- Scalable and maintainable technology
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ Tech Stack
+| Category | Tools |
+|-----------|-------|
+| **Framework** | Next.js + Typescript |
+| **Database** | PostgreSQL (Supabase) |
+| **Deployment** | Vercel |
+| **Styling** | Tailwind CSS (Shadcn UI)|
+| **Version Control** | GitHub |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💡 Development Philosophy
+We believe in **small, consistent improvements** that compound into lasting excellence.
+Every project is treated as a living system — constantly evolving to stay relevant and valuable.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚠️ License & Usage
+© 2025 **Kaizen Digital Labs**. All rights reserved.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This repository and its contents are **proprietary and confidential**.
+Unauthorized copying, distribution, modification, or use of this code, in whole or in part, is strictly prohibited without prior written consent from **Kaizen Digital Labs**.
+
+---
+
+## ✉️ Contact
+**Email:** [kaizen.digilabs@gmail.com](mailto:kaizen.digilabs@gmail.com)
+
+**Website:** [https://kaizendigilabs.com](https://kaizendigilabs.com)
+
+---
+
+<div align="center">
+<i>Maintained by the Kaizen Development Team.</i>
+
+<sub>External contributions are not accepted.</sub>
+</div>
+
