@@ -6,9 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:link": "supabase link --project-ref",
+    "db:new": "supabase migration new",
+    "db:types": "supabase gen types typescript --linked > lib/types/database.ts",
+    "db:migrate": "supabase migration up --linked",
+    "db:reset": "supabase db reset --linked",
+    "db:reset:types": "yes | supabase db reset --linked && supabase gen types typescript --linked > lib/types/database.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.81.1",
     "@vercel/speed-insights": "^1.2.0",
     "next": "16.0.0",
     "react": "19.2.0",

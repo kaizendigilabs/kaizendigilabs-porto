@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/app": ["./app"],
+      "@/components": ["./components"],
+      "@/lib": ["./lib"],
+      "@/supabase": ["./supabase"],
     }
   },
   "include": [
