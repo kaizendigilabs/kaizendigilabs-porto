@@ -2,7 +2,6 @@
 // 2. ABOUT INTRO SECTION
 // =========================
 
-import SectionDivider from '@/components/shared/section-divider';
 import Image from 'next/image';
 
 const ABOUT_BENTO_IMAGES = [
@@ -27,8 +26,6 @@ export function IntroSection() {
                 Our Story
               </h2>
             </div>
-
-            <div className="w-12 h-px bg-zinc-300" />
           </div>
 
           {/* Right side: Multi-paragraph narrative */}
@@ -42,7 +39,7 @@ export function IntroSection() {
             </p>
 
             {/* Philosophy Callout */}
-            <div className="my-8 py-8 border-l-4 border-red-600 pl-8 bg-zinc-50">
+            <div className="my-8 py-8 border-l-4 border-zinc-500 pl-8 bg-zinc-50">
               <p className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 mb-2">
                 "Iterate, Innovate, Improve"
               </p>

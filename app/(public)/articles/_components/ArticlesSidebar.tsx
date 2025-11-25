@@ -4,17 +4,11 @@ import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Search } from 'lucide-react';
 import { useMemo } from 'react';
-
-interface Article {
-  id: string;
-  slug: string;
-  title: string;
-  tags?: string[];
-  views?: number | null;
-}
+import { ArticleWithAuthor } from '@/lib/types/articles';
+import { Button } from '@/components/ui/button';
 
 interface ArticlesSidebarProps {
-  articles: Article[];
+  articles: ArticleWithAuthor[];
 }
 
 export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
@@ -25,30 +19,34 @@ export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
 
   // Extract unique topics from all articles
   const topics = useMemo(() => {
-    const topicSet = new Set<string>();
+    const topicMap = new Map<string, { name: string; slug: string }>();
     articles.forEach((article) => {
-      article.tags?.forEach((tag) => topicSet.add(tag));
+      article.tags?.forEach((tag) => {
+        if (!topicMap.has(tag.slug)) {
+          topicMap.set(tag.slug, tag);
+        }
+      });
     });
-    return Array.from(topicSet).slice(0, 8); // Limit to 8 topics
+    return Array.from(topicMap.values()).slice(0, 8); // Limit to 8 topics
   }, [articles]);
 
-  // Get top 3 articles by views
+  // Top 3 insights - sort by views (most viewed articles)
   const topInsights = useMemo(() => {
-    return [...articles]
-      .filter((a) => a.views !== null && a.views !== undefined)
-      .sort((a, b) => (b.views || 0) - (a.views || 0))
+    return articles
+      .filter(a => a.views && a.views > 0) // Only articles with views
+      .sort((a, b) => (b.views || 0) - (a.views || 0)) // Sort by views DESC
       .slice(0, 3)
       .map((article, index) => ({
-        title: article.title,
         slug: article.slug,
+        title: article.title,
+        views: article.views,
         index: index + 1,
       }));
   }, [articles]);
 
-  const handleTopicClick = (topic: string) => {
-    const topicSlug = encodeURIComponent(topic.toLowerCase());
+  const handleTopicClick = (slug: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('topic', topicSlug);
+    params.set('tag', slug);
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
@@ -90,7 +88,7 @@ export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
           <ul className="space-y-4">
             {topInsights.map((insight) => (
               <li key={insight.slug} className="group">
-                <Link href={`/articles/${insight.slug}`} className="flex gap-3 items-start">
+                <Link href={`/articles/${insight.slug}`} className="flex gap-3 items-center">
                   <span className="font-mono text-xl text-zinc-200 font-bold leading-none group-hover:text-red-600 transition-colors">
                     0{insight.index}
                   </span>
@@ -112,13 +110,14 @@ export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
           </h3>
           <div className="flex flex-wrap gap-2">
             {topics.map((topic) => (
-              <button
-                key={topic}
-                onClick={() => handleTopicClick(topic)}
-                className="px-3 py-1.5 bg-zinc-100 text-xs font-mono text-zinc-600 hover:bg-zinc-900 hover:text-white transition-colors rounded-sm cursor-pointer"
+              <Button
+                key={topic.slug}
+                onClick={() => handleTopicClick(topic.slug)}
+                size="sm"
+                className="text-xs font-mono font-medium bg-zinc-100 text-muted-foreground hover:text-primary-foreground"
               >
-                {topic}
-              </button>
+                {topic.name}
+              </Button>
             ))}
           </div>
         </div>

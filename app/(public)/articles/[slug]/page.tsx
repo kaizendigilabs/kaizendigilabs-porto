@@ -1,5 +1,6 @@
-import { ArticleContent } from '../_components/ArticleContent';
-import { ArticleTOC } from '../_components/ArticleTOC';
+import { ArticleContent } from './_components/ArticleContent';
+import { ArticleTOC } from './_components/ArticleTOC';
+import { ReadNextSection } from './_components/ReadNextSection';
 import { ArticleViewTracker } from '@/components/analytics/article-view-tracker';
 import { createServerClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
@@ -7,7 +8,8 @@ import { OptimizedImage } from '@/components/shared/optimized-image';
 import Link from 'next/link';
 import { ArrowLeft, Share2, Bookmark } from 'lucide-react';
 import type { Metadata } from 'next';
-import { slugify } from '@/lib/utils';
+import { slugify, calculateReadTime } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 export const revalidate = 0;
 
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: article.excerpt || '',
       type: 'article',
       publishedTime: article.created_at,
-      authors: [article.author?.full_name || 'Kaizen Digital Labs'],
+      authors: article.author?.full_name ? [article.author.full_name] : [],
       tags: [],
       images: [
         {
@@ -113,11 +115,12 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
 
   // Generate outline from content
   const outline = extractOutline(article.content);
+  const readTime = calculateReadTime(article.content);
 
   // Get related articles (excluding current article)
   const { data: relatedArticlesData } = await supabase
     .from('articles')
-    .select('*')
+    .select('*, profiles(full_name, avatar)')
     .neq('slug', slug)
     .eq('published', true)
     .limit(2);
@@ -126,7 +129,11 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
 
   return (
     <>
-      <ArticleViewTracker slug={article.slug} title={article.title} />
+      <ArticleViewTracker
+        articleId={article.id}
+        slug={article.slug}
+        title={article.title}
+      />
       <main className="min-h-screen pt-(--header-h) pb-24">
         {/* HEADER SECTION */}
         <div className="w-full bg-zinc-950 text-zinc-50 pt-32 pb-16 lg:pt-40 lg:pb-24 px-8">
@@ -139,21 +146,10 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
               Back to Articles
             </Link>
 
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="relative w-10 h-10 rounded-full bg-zinc-800 overflow-hidden">
-                <OptimizedImage
-                  src={article.author?.avatar || '/images/placeholder.svg'}
-                  alt={article.author?.full_name || 'Author'}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="text-left">
-                <p className="font-bold text-sm">{article.author?.full_name || 'Kaizen Digital Labs'}</p>
-                <p className="text-xs text-zinc-500">
-                  {new Date(article.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                </p>
-              </div>
+            <div className="mb-4">
+              <span className="font-mono text-xs text-zinc-400 uppercase tracking-wider">
+                {readTime}
+              </span>
             </div>
 
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-balance">
@@ -164,13 +160,13 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
 
         {/* HERO IMAGE */}
         <div className="w-full max-w-6xl mx-auto -mt-12 lg:-mt-20 px-4 lg:px-8 relative z-10">
-          <div className="relative aspect-21/9 w-full overflow-hidden rounded-lg shadow-lg bg-zinc-200">
+          <div className="relative aspect-21/9 w-full overflow-hidden shadow-lg bg-zinc-200">
             <OptimizedImage
               src={article.image_url || '/images/placeholder.svg'}
               alt={article.title}
               fill
               className="object-cover"
-              priority
+              preload
             />
           </div>
         </div>
@@ -205,13 +201,16 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
                 <h3 className="text-sm font-mono uppercase tracking-widest text-zinc-400 mb-4">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag: any) => (
-                    <Link
+                    <Button
                       key={tag.id}
-                      href={`/articles?tag=${tag.slug}`}
-                      className="px-3 py-1 text-sm bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded-full transition-colors"
+                      asChild
+                      size="sm"
+                      className="text-xs font-mono font-medium bg-zinc-100 text-muted-foreground hover:text-primary-foreground"
                     >
-                      {tag.name}
-                    </Link>
+                      <Link href={`/articles?tag=${tag.slug}`}>
+                        {tag.name}
+                      </Link>
+                    </Button>
                   ))}
                 </div>
               </div>
@@ -229,7 +228,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
                 />
               </div>
               <div>
-                <p className="text-sm font-bold text-zinc-900">{article.author?.full_name || 'Kaizen Digital Labs'}</p>
+                <p className="text-sm font-bold text-zinc-900">{article.author?.full_name || ''}</p>
                 {article.author?.job_title && (
                   <p className="text-xs text-zinc-500">{article.author.job_title}</p>
                 )}
@@ -248,28 +247,10 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
 
         {/* READ NEXT SECTION */}
         {relatedArticles.length > 0 && (
-          <div className="mx-auto max-w-4xl px-8 mt-24 pt-16 border-t border-zinc-200">
-            <h3 className="font-heading text-2xl font-bold mb-8">Read Next</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {relatedArticles.map((relatedArticle) => (
-                <Link key={relatedArticle.slug} href={`/articles/${relatedArticle.slug}`} className="group block">
-                  <div className="aspect-video bg-zinc-200 mb-4 overflow-hidden rounded-md relative">
-                    <OptimizedImage
-                      src={relatedArticle.image_url || '/images/placeholder.svg'}
-                      alt={relatedArticle.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <h4 className="font-bold text-lg group-hover:text-red-600 transition-colors">{relatedArticle.title}</h4>
-                  <p className="text-sm text-zinc-500 mt-2">{relatedArticle.excerpt}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <ReadNextSection articles={relatedArticles} />
         )}
 
-      </main>
+      </main >
     </>
   );
 }

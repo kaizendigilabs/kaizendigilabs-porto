@@ -166,7 +166,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className="w-full px-8 py-4 bg-zinc-900 text-white font-bold hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                className="w-full px-8 py-4 bg-zinc-900 text-white font-bold hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
                             >
                                 {isPending ? (
                                     <>

@@ -2,15 +2,15 @@
 
 import { useEffect, useRef } from 'react';
 import { track } from '@vercel/analytics';
-import { incrementProjectViews } from '@/app/actions/views';
+import { incrementServiceViews } from '@/app/actions/views';
 
-interface ProjectViewTrackerProps {
-    projectId: string;
+interface ServiceViewTrackerProps {
+    serviceId: string;
     slug: string;
     title: string;
 }
 
-export function ProjectViewTracker({ projectId, slug, title }: ProjectViewTrackerProps) {
+export function ServiceViewTracker({ serviceId, slug, title }: ServiceViewTrackerProps) {
     const tracked = useRef(false);
 
     useEffect(() => {
@@ -19,12 +19,12 @@ export function ProjectViewTracker({ projectId, slug, title }: ProjectViewTracke
 
         const timer = setTimeout(() => {
             // Dual tracking: Vercel + Database
-            track('Project View', { slug, title });
-            incrementProjectViews(projectId);
+            track('Service View', { slug, title });
+            incrementServiceViews(serviceId);
         }, 3000);
 
         return () => clearTimeout(timer);
-    }, [projectId, slug, title]);
+    }, [serviceId, slug, title]);
 
     return null;
 }

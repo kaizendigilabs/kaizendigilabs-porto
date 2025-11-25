@@ -69,11 +69,11 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
       </div>
 
       <div className="mx-auto max-w-7xl px-8 py-24 relative z-10">
-        <SectionDivider label="05 — TESTIMONIALS" />
+        <SectionDivider label="TESTIMONIALS" />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16 lg:gap-24 items-start">
           {/* LEFT: Header & Navigation */}
-          <div className="flex flex-col justify-between h-full space-y-12">
+          <div className="flex flex-col justify-between space-y-12">
             <div className="space-y-4">
               <h2 className="font-heading text-4xl lg:text-5xl font-bold tracking-tighter text-zinc-950">
                 Client
@@ -89,14 +89,14 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
             <div className="flex items-center gap-4">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all duration-300 cursor-pointer"
                 aria-label="Previous testimonial"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all duration-300 cursor-pointer"
                 aria-label="Next testimonial"
               >
                 <ArrowRight className="w-5 h-5" />

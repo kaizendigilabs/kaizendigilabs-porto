@@ -56,9 +56,9 @@ interface TeamCardProps {
 
 function TeamCard({ member }: TeamCardProps) {
   return (
-    <article className="group flex flex-col overflow-hidden border border-zinc-200 bg-white hover:shadow-xl transition-all duration-300">
+    <article className="group flex flex-col overflow-hidden frosted-glass/70 hover:shadow-md transition-all duration-300">
       {/* Portrait image - square aspect ratio */}
-      <div className="relative aspect-square w-full bg-zinc-200 overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden">
         <OptimizedImage
           src={member.avatar || '/images/placeholder.svg'}
           alt={member.full_name || 'Team Member'}
@@ -69,12 +69,12 @@ function TeamCard({ member }: TeamCardProps) {
       </div>
 
       {/* Name, role, bio, and social media below image */}
-      <div className="p-8 bg-white space-y-4">
+      <div className="p-4 space-y-4">
         <div>
-          <h3 className="font-heading text-2xl font-bold text-zinc-900 mb-1">
+          <h3 className="font-heading text-2xl font-semibold text-zinc-900 mb-1">
             {member.full_name}
           </h3>
-          <p className="text-sm font-mono uppercase tracking-wider text-red-600">
+          <p className="text-sm font-mono uppercase tracking-wider text-zinc-500">
             {member.job_title}
           </p>
         </div>
@@ -89,13 +89,13 @@ function TeamCard({ member }: TeamCardProps) {
         {/* Social Media Links - only show if at least one exists */}
         {/* Social Media Links */}
         {member.social_links && (
-          <div className="flex gap-3 pt-4 border-t border-zinc-200">
+          <div className="flex gap-3">
             {member.social_links.instagram && (
               <a
                 href={member.social_links.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-400 hover:text-pink-600 transition-colors"
+                className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -109,7 +109,7 @@ function TeamCard({ member }: TeamCardProps) {
                 href={member.social_links.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-400 hover:text-sky-500 transition-colors"
+                className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 aria-label="Twitter/X"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -123,7 +123,7 @@ function TeamCard({ member }: TeamCardProps) {
                 href={member.social_links.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-400 hover:text-blue-600 transition-colors"
+                className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -151,7 +151,7 @@ function TeamCard({ member }: TeamCardProps) {
                 href={member.social_links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-400 hover:text-blue-700 transition-colors"
+                className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

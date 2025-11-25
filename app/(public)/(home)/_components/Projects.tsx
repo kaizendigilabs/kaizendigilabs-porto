@@ -34,9 +34,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
       <div className="mx-auto max-w-7xl px-8 py-24 relative z-10">
         {/* HEADER */}
+        <SectionDivider label="SELECTED WORKS" />
+
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="space-y-4">
-            <SectionDivider label="03 — SELECTED WORKS" />
             <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
               Case
               <br />
@@ -65,11 +66,11 @@ function ProjectItem({ project }: { project: ProjectItem }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative w-full border-t border-zinc-200 py-12 flex flex-col md:flex-row items-baseline md:items-center justify-between gap-4 hover:bg-zinc-100/50 transition-colors duration-500"
+      className="group relative w-full border-t border-zinc-200 py-12 flex flex-col md:flex-row items-baseline md:items-center justify-between gap-4 hover:bg-background-70 hover:backdrop-blur-md transition-colors duration-500"
     >
       {/* HOVER IMAGE REVEAL */}
-      <div className="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 w-[400px] h-[250px] opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none z-20 rotate-3 group-hover:rotate-0 scale-90 group-hover:scale-100 origin-center">
-        <div className="relative w-full h-full overflow-hidden shadow-2xl">
+      <div className="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 w-[400px] h-[250px] opacity-0 z-20 group-hover:opacity-100 transition-all duration-500 pointer-events-none rotate-3 group-hover:rotate-0 scale-90 group-hover:scale-100 origin-center">
+        <div className="relative w-full h-full overflow-hidden shadow-sm">
           <OptimizedImage
             src={project.image_url}
             alt={project.title}

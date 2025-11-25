@@ -73,7 +73,7 @@ export function ValuesSection() {
   const scrollToValue = (slug: string) => {
     const element = document.getElementById(slug);
     if (element) {
-      const offset = 100;
+      const offset = 175;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -128,7 +128,7 @@ export function ValuesSection() {
           </div>
 
           {/* RIGHT: SCROLLABLE CONTENT */}
-          <div className="flex flex-col gap-24 lg:gap-40">
+          <div className="flex flex-col gap-24 lg:gap-32">
             {VALUES.map((value) => (
               <div
                 key={value.slug}

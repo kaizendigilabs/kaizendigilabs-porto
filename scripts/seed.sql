@@ -4,220 +4,252 @@
 -- ==========================================
 -- 1. Services Seeding
 -- ==========================================
-INSERT INTO services (slug, title, description, capabilities, icon)
+INSERT INTO services (slug, title, description, capabilities, published, display_order, views)
 VALUES
   (
     'digital-strategy',
     'Digital Strategy',
     'We build the foundation for your digital growth. Through in-depth market research and data-driven insights, we craft strategies that align with your business goals.',
     ARRAY['Market Research', 'Brand Positioning', 'Content Strategy', 'SEO & SEM', 'Social Media Strategy'],
-    'LineChart'
+    true,
+    1,
+    0
   ),
   (
     'brand-identity',
     'Brand Identity',
     'Your brand is more than just a logo. We create cohesive visual identities that tell your story and resonate with your audience across all touchpoints.',
     ARRAY['Logo Design', 'Visual Systems', 'Brand Guidelines', 'Typography', 'Art Direction'],
-    'Palette'
+    true,
+    2,
+    0
   ),
   (
     'web-development',
     'Web Development',
     'We engineer high-performance websites that are beautiful, responsive, and built to scale. Using the latest technologies to ensure speed and security.',
     ARRAY['Custom Development', 'E-Commerce', 'CMS Integration', 'Performance Optimization', 'Web Applications'],
-    'Code'
+    true,
+    3,
+    0
   ),
   (
     'mobile-apps',
     'Mobile Apps',
     'Extend your reach with native and cross-platform mobile applications. We design intuitive interfaces and seamless user experiences for iOS and Android.',
     ARRAY['iOS & Android', 'React Native', 'UI/UX Design', 'App Store Optimization', 'Maintenance'],
-    'Smartphone'
+    true,
+    4,
+    0
   )
 ON CONFLICT (slug) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description,
   capabilities = EXCLUDED.capabilities,
-  icon = EXCLUDED.icon;
+  published = EXCLUDED.published,
+  display_order = EXCLUDED.display_order,
+  views = EXCLUDED.views;
 
 -- ==========================================
 -- 2. Projects Seeding
 -- ==========================================
-INSERT INTO projects (title, slug, category, year, image_url, size, client, description, services, images, published, link)
+INSERT INTO projects (title, slug, category, year, image_url, client, description, published, link, display_order, views)
 VALUES
   (
     'Batik Nusantara Online',
     'batik-nusantara-online',
     'E-Commerce',
     '2024',
-    'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=2056&auto=format&fit=crop',
-    'Full Width',
+    '/images/placeholder.svg',
     'Batik Nusantara',
     'A modern e-commerce platform designed to help local batik artisans reach a global audience. Features include a seamless checkout process, inventory management, and a visual storytelling approach to showcase the heritage behind each pattern.',
-    ARRAY['Web Development', 'UI/UX Design', 'Digital Strategy'],
-    ARRAY['https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=2056&auto=format&fit=crop'],
     true,
-    'https://example.com/batik'
+    'https://example.com/batik',
+    1,
+    0
   ),
   (
     'EduSmart Academy LMS',
     'edusmart-academy-lms',
     'Education',
     '2024',
-    'https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1974&auto=format&fit=crop',
-    'Half Width',
+    '/images/placeholder.svg',
     'EduSmart Foundation',
     'A comprehensive Learning Management System (LMS) for a forward-thinking educational institution. The platform supports interactive lessons, student progress tracking, and automated assessments, fostering a more engaging learning environment.',
-    ARRAY['Web Development', 'Mobile Apps', 'UI/UX Design'],
-    ARRAY['https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1974&auto=format&fit=crop'],
     true,
-    'https://example.com/edusmart'
+    'https://example.com/edusmart',
+    2,
+    0
   ),
   (
     'GreenEnergy Corp Profile',
     'greenenergy-corp-profile',
     'Corporate',
     '2023',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop',
-    'Half Width',
+    '/images/placeholder.svg',
     'GreenEnergy Corp',
     'A sleek and professional corporate website for a renewable energy leader. The design emphasizes sustainability and innovation, featuring interactive data visualizations of energy impact and a robust investor relations section.',
-    ARRAY['Web Development', 'Brand Identity', 'Digital Strategy'],
-    ARRAY['https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop'],
     true,
-    'https://example.com/greenenergy'
+    'https://example.com/greenenergy',
+    3,
+    0
   ),
   (
     'HealthTrack Mobile App',
     'healthtrack-mobile-app',
     'Mobile App',
     '2025',
-    'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop',
-    'Full Width',
+    '/images/placeholder.svg',
     'HealthTrack Inc.',
     'A cross-platform mobile application for personal health monitoring. Users can track workouts, nutrition, and sleep patterns. The app integrates with wearable devices and provides personalized health insights using AI.',
-    ARRAY['Mobile Apps', 'UI/UX Design', 'Digital Strategy'],
-    ARRAY['https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop'],
     true,
-    'https://example.com/healthtrack'
+    'https://example.com/healthtrack',
+    4,
+    0
   )
 ON CONFLICT (slug) DO UPDATE SET
   title = EXCLUDED.title,
   category = EXCLUDED.category,
   year = EXCLUDED.year,
   image_url = EXCLUDED.image_url,
-  size = EXCLUDED.size,
   client = EXCLUDED.client,
   description = EXCLUDED.description,
-  services = EXCLUDED.services,
-  images = EXCLUDED.images,
   published = EXCLUDED.published,
-  link = EXCLUDED.link;
+  link = EXCLUDED.link,
+  display_order = EXCLUDED.display_order,
+  views = EXCLUDED.views;
 
 -- ==========================================
--- 3. Articles Seeding
+-- 3. Project Services Seeding (Junction)
 -- ==========================================
--- We use a CTE to fetch the first user to assign as author
-WITH first_user AS (
-  SELECT id, email FROM auth.users ORDER BY created_at ASC LIMIT 1
+-- Clear existing links for seeded projects to avoid duplicates/conflicts if re-running without reset
+DELETE FROM project_services 
+WHERE project_id IN (SELECT id FROM projects WHERE slug IN ('batik-nusantara-online', 'edusmart-academy-lms', 'greenenergy-corp-profile', 'healthtrack-mobile-app'));
+
+INSERT INTO project_services (project_id, service_id)
+SELECT p.id, s.id
+FROM projects p, services s
+WHERE 
+  (p.slug = 'batik-nusantara-online' AND s.slug IN ('web-development', 'digital-strategy')) OR
+  (p.slug = 'edusmart-academy-lms' AND s.slug IN ('web-development', 'mobile-apps')) OR
+  (p.slug = 'greenenergy-corp-profile' AND s.slug IN ('web-development', 'brand-identity')) OR
+  (p.slug = 'healthtrack-mobile-app' AND s.slug IN ('mobile-apps', 'digital-strategy'));
+
+
+-- ==========================================
+-- 4. Tags Seeding
+-- ==========================================
+INSERT INTO tags (name, slug, description)
+VALUES
+  ('Kaizen', 'kaizen', 'Continuous improvement philosophy'),
+  ('Agile', 'agile', 'Agile development methodology'),
+  ('Development', 'development', 'Software development topics'),
+  ('UMKM', 'umkm', 'Micro, Small, and Medium Enterprises'),
+  ('Digital Transformation', 'digital-transformation', 'Digitizing business processes'),
+  ('Business Growth', 'business-growth', 'Strategies for growing business'),
+  ('EdTech', 'edtech', 'Educational Technology'),
+  ('Education', 'education', 'General education topics'),
+  ('Innovation', 'innovation', 'New ideas and methods')
+ON CONFLICT (slug) DO NOTHING;
+
+-- ==========================================
+-- 5. Articles Seeding
+-- ==========================================
+-- We use a CTE to fetch the first admin to assign as author
+WITH first_admin AS (
+  SELECT u.id
+  FROM auth.users u
+  JOIN public.profiles p ON p.user_id = u.id
+  JOIN public.user_roles ur ON ur.user_id = p.user_id
+  JOIN public.roles r ON r.id = ur.role_id
+  WHERE r.name = 'admin'
+  ORDER BY u.created_at ASC, u.id ASC
+  LIMIT 1
+),
+-- Update the admin profile to ensure it's visible and has data
+update_admin_profile AS (
+  UPDATE public.profiles
+  SET 
+    status = 'active',
+    full_name = COALESCE(full_name, 'Kaizen Admin'),
+    avatar = COALESCE(avatar, '/images/placeholder.svg'),
+    job_title = COALESCE(job_title, 'Administrator')
+  WHERE user_id = (SELECT id FROM first_admin)
+  RETURNING user_id
 )
-INSERT INTO articles (slug, title, excerpt, category, author, date, read_time, views, likes, comments, image_url, hero_image, tags, author_info, content, published)
+INSERT INTO articles (slug, title, excerpt, author_id, published, display_order, image_url, content, views)
 SELECT
   slug,
   title,
   excerpt,
-  category,
-  COALESCE((SELECT email FROM first_user), 'admin@kaizendigilabs.com'), -- Fallback if no user exists
-  date,
-  read_time,
-  views,
-  likes,
-  comments,
+  (SELECT id FROM first_admin), -- Use the first admin found
+  published,
+  display_order,
   image_url,
-  hero_image,
-  tags,
-  jsonb_build_object(
-    'name', 'Kaizen Team',
-    'avatar', 'https://github.com/shadcn.png',
-    'role', 'Editor'
-  ),
   content,
-  published
+  views
 FROM (VALUES
   (
     'why-continuous-improvement-matters',
     'Why Continuous Improvement Matters in Digital Development',
     'Explore how the philosophy of Kaizen can transform your digital product development process, ensuring long-term success and adaptability.',
-    'Philosophy',
-    NOW() - INTERVAL '2 days',
-    '5 min read',
-    1250,
-    45,
-    12,
-    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop',
-    ARRAY['Kaizen', 'Agile', 'Development'],
+    true,
+    1,
+    '/images/placeholder.svg',
     '{"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "In the fast-paced world of digital technology, standing still is equivalent to moving backward. This is where the philosophy of Kaizen—continuous improvement—becomes vital. By focusing on small, consistent changes, businesses can achieve significant growth over time."}]}]}'::jsonb,
-    true
+    0
   ),
   (
     'digital-transformation-for-umkm',
     'Digital Transformation for UMKM: Where to Start?',
     'A practical guide for Micro, Small, and Medium Enterprises (UMKM) in Indonesia to begin their digital transformation journey effectively.',
-    'Business',
-    NOW() - INTERVAL '5 days',
-    '7 min read',
-    3400,
-    120,
-    34,
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-    ARRAY['UMKM', 'Digital Transformation', 'Business Growth'],
+    true,
+    2,
+    '/images/placeholder.svg',
     '{"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "For many UMKMs, going digital can seem daunting. However, it doesn''t have to be. Starting with a strong digital identity and leveraging social media can open doors to new markets. This article outlines the first steps to take."}]}]}'::jsonb,
-    true
+    0
   ),
   (
     'future-of-edtech-indonesia',
     'The Future of EdTech in Indonesia',
     'Analyzing the trends and technologies that are shaping the future of education in Indonesia, from LMS to interactive learning apps.',
-    'Technology',
-    NOW() - INTERVAL '10 days',
-    '6 min read',
-    2100,
-    89,
-    21,
-    'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop',
-    ARRAY['EdTech', 'Education', 'Innovation'],
+    true,
+    3,
+    '/images/placeholder.svg',
     '{"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Education technology is revolutionizing how we learn. In Indonesia, the adoption of LMS and mobile learning apps is bridging the gap between urban and rural education, providing equal opportunities for all students."}]}]}'::jsonb,
-    true
+    0
   )
-) AS data(slug, title, excerpt, category, date, read_time, views, likes, comments, image_url, hero_image, tags, content, published)
+) AS data(slug, title, excerpt, published, display_order, image_url, content, views)
+WHERE (SELECT id FROM first_admin) IS NOT NULL
 ON CONFLICT (slug) DO UPDATE SET
   title = EXCLUDED.title,
   excerpt = EXCLUDED.excerpt,
-  category = EXCLUDED.category,
-  author = EXCLUDED.author,
-  date = EXCLUDED.date,
-  read_time = EXCLUDED.read_time,
-  views = EXCLUDED.views,
-  likes = EXCLUDED.likes,
-  comments = EXCLUDED.comments,
+  author_id = EXCLUDED.author_id,
+  published = EXCLUDED.published,
+  display_order = EXCLUDED.display_order,
   image_url = EXCLUDED.image_url,
-  hero_image = EXCLUDED.hero_image,
-  tags = EXCLUDED.tags,
-  author_info = EXCLUDED.author_info,
   content = EXCLUDED.content,
-  published = EXCLUDED.published;
+  views = EXCLUDED.views;
 
 -- ==========================================
--- 4. Testimonials Seeding
+-- 6. Article Tags Seeding (Junction)
 -- ==========================================
--- Note: Testimonials table does not have a unique slug, so we use simple INSERTs.
--- To prevent duplicates on re-runs, you might want to clear the table first (optional):
--- TRUNCATE TABLE testimonials;
+-- Clear existing links
+DELETE FROM article_tags
+WHERE article_id IN (SELECT id FROM articles WHERE slug IN ('why-continuous-improvement-matters', 'digital-transformation-for-umkm', 'future-of-edtech-indonesia'));
 
-INSERT INTO testimonials (name, role, company, text, display_order, published)
+INSERT INTO article_tags (article_id, tag_id)
+SELECT a.id, t.id
+FROM articles a, tags t
+WHERE
+  (a.slug = 'why-continuous-improvement-matters' AND t.slug IN ('kaizen', 'agile', 'development')) OR
+  (a.slug = 'digital-transformation-for-umkm' AND t.slug IN ('umkm', 'digital-transformation', 'business-growth')) OR
+  (a.slug = 'future-of-edtech-indonesia' AND t.slug IN ('edtech', 'education', 'innovation'));
+
+-- ==========================================
+-- 7. Testimonials Seeding
+-- ==========================================
+INSERT INTO testimonials (name, role, company, content, display_order, published, rating)
 VALUES
   (
     'Budi Santoso',
@@ -225,7 +257,8 @@ VALUES
     'Batik Warisan',
     'Kaizen Digital Labs helped us transform our traditional batik business into a modern online brand. Their understanding of our heritage and digital trends was impressive.',
     1,
-    true
+    true,
+    5
   ),
   (
     'Sarah Wijaya',
@@ -233,7 +266,8 @@ VALUES
     'Global Mandiri School',
     'The LMS platform developed by Kaizen has revolutionized how our teachers and students interact. It is intuitive, fast, and reliable.',
     2,
-    true
+    true,
+    5
   ),
   (
     'Michael Tan',
@@ -241,49 +275,15 @@ VALUES
     'TechStart Indonesia',
     'Professional, responsive, and innovative. Kaizen Digital Labs is the partner you need for scaling your digital product.',
     3,
-    true
+    true,
+    5
   );
+-- Note: No unique constraint on testimonials usually, so this might duplicate if run multiple times without reset.
+-- Ideally, we'd have a slug or unique ID, but for now, we rely on reset-seed.sql to clear.
 
 -- ==========================================
--- 5. Team Members Seeding
+-- 8. FAQs Seeding
 -- ==========================================
--- Note: Team Members table does not have a unique slug.
-
-INSERT INTO team_members (name, role, bio, image_url, linkedin_url, display_order, published)
-VALUES
-  (
-    'Andi Pratama',
-    'CEO & Founder',
-    'Visionary leader with over 10 years of experience in software engineering and digital transformation. Passionate about empowering local businesses.',
-    'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop',
-    'https://linkedin.com/in/andipratama',
-    1,
-    true
-  ),
-  (
-    'Siti Rahma',
-    'Creative Director',
-    'Award-winning designer with a keen eye for aesthetics and user experience. She ensures every pixel serves a purpose.',
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop',
-    'https://linkedin.com/in/sitirahma',
-    2,
-    true
-  ),
-  (
-    'Rizky Fauzi',
-    'Lead Developer',
-    'Full-stack wizard who loves solving complex technical challenges. Expert in modern web technologies and scalable architecture.',
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop',
-    'https://linkedin.com/in/rizkyfauzi',
-    3,
-    true
-  );
-
--- ==========================================
--- 6. FAQs Seeding
--- ==========================================
--- Note: FAQs table does not have a unique slug.
-
 INSERT INTO faqs (question, answer, display_order, published)
 VALUES
   (
@@ -310,3 +310,4 @@ VALUES
     4,
     true
   );
+

@@ -44,9 +44,16 @@ export default function RootLayout({
       <body
         className={`${headingFont.variable} ${bodyFont.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Custom Analytics - Track page views to database */}
         <AnalyticsTracker />
+
         {children}
+
         <Toaster position="top-right" />
+
+        {/* Vercel Analytics - Professional dashboard (admin insights) */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

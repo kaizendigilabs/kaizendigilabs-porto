@@ -17,3 +17,18 @@ export function slugify(text: string): string {
     .replace(/^-+/, '')          // Trim - from start of text
     .replace(/-+$/, '');         // Trim - from end of text
 }
+
+export function calculateReadTime(content: any): string {
+  if (!content || !content.content) return '1 min read';
+
+  let text = '';
+  const traverse = (node: any) => {
+    if (node.text) text += node.text + ' ';
+    if (node.content && Array.isArray(node.content)) node.content.forEach(traverse);
+  };
+
+  traverse(content);
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / 200);
+  return `${minutes} min read`;
+}

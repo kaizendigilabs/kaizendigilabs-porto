@@ -89,7 +89,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                     key={service.slug}
                     onClick={() => scrollToSection(service.slug)}
                     className={cn(
-                      "group flex items-center gap-4 text-left transition-all duration-300",
+                      "group flex items-center gap-4 text-left transition-all duration-300 cursor-pointer",
                       activeId === service.slug ? "opacity-100 translate-x-4" : "opacity-40 hover:opacity-100 hover:translate-x-2"
                     )}
                   >
@@ -154,6 +154,17 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Learn More Link */}
+                  <div className="pt-4">
+                    <a
+                      href={`/services/${service.slug}`}
+                      className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-zinc-900 hover:text-red-600 transition-colors group/link"
+                    >
+                      Learn More
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+                    </a>
                   </div>
                 </div>
               </div>

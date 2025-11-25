@@ -76,8 +76,9 @@ export function ProcessSection() {
 
       <div className="mx-auto max-w-7xl px-8 py-24 relative z-10">
         {/* HEADER */}
+        <SectionDivider label="THE PROCESS" />
+
         <div className="mb-16 space-y-4">
-          <SectionDivider label="04 — THE PROCESS" />
           <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
             How We
             <br />
@@ -89,15 +90,15 @@ export function ProcessSection() {
         </div>
 
         {/* RESPONSIVE GRID LAYOUT */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 border-t border-l border-zinc-200">
+        <div className="grid grid-cols-1 lg:grid-cols-4">
           {PROCESS_STEPS.map((step, index) => {
             const isActive = index === activeStepIndex;
 
             return (
               <div
                 key={step.id}
-                className={`group relative border-b border-r border-zinc-200 p-8 lg:p-10 min-h-[300px] flex flex-col justify-between transition-all duration-500 cursor-default
-                  ${isActive ? 'bg-zinc-100/80 opacity-100' : 'bg-zinc-50 opacity-40 hover:opacity-100 hover:bg-zinc-50'}
+                className={`group relative p-8 lg:p-10 min-h-[300px] flex flex-col justify-between transition-all duration-500 ease-out cursor-pointer
+                  ${isActive ? 'bg-white shadow-sm opacity-100 scale-[1.02] z-10' : 'frosted-glass/70 opacity-60 hover:bg-zinc-100 hover:opacity-100 hover:scale-[1.02]'}
                 `}
                 onMouseEnter={() => {
                   setIsPaused(true);
@@ -121,9 +122,6 @@ export function ProcessSection() {
                     {step.description}
                   </p>
                 </div>
-
-                {/* Active Indicator Line (Mobile: Bottom, Desktop: Top) */}
-                <div className={`absolute top-0 left-0 w-full h-1 bg-zinc-900 transform transition-transform duration-500 origin-left ${isActive ? 'scale-x-100' : 'scale-x-0'}`} />
               </div>
             );
           })}

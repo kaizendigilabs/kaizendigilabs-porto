@@ -21,7 +21,7 @@ export default async function Home() {
     supabase.from('services').select('*').order('title', { ascending: true }).limit(6),
     supabase.from('projects').select('*').eq('published', true).order('created_at', { ascending: false }).limit(4),
     supabase.from('testimonials').select('*').eq('published', true).order('rating', { ascending: false }),
-    supabase.from('articles').select('*').eq('published', true).order('created_at', { ascending: false }).limit(3),
+    supabase.from('articles').select('*, profiles(full_name, avatar)').eq('published', true).order('created_at', { ascending: false }).limit(3),
     supabase.from('faqs').select('*').eq('published', true).order('created_at', { ascending: false })
   ]);
 
@@ -29,7 +29,6 @@ export default async function Home() {
     <main className="min-h-screen pt-(--header-h)">
       <HeroSection />
 
-      {/* Only show sections if data exists */}
       {services && services.length > 0 && (
         <ServicesSection services={services} />
       )}

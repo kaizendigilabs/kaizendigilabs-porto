@@ -182,11 +182,13 @@ alter table public.roles enable row level security;
 alter table public.user_roles enable row level security;
 
 -- Profiles Policies
-create policy "Profiles are viewable by owner or admin"
+create policy "Profiles are viewable"
 on public.profiles for select
-to authenticated
+to public
 using (
-  (select auth.uid()) = user_id or public.is_admin()
+  status = 'active' 
+  or ((select auth.uid()) = user_id) 
+  or ((select auth.role()) = 'authenticated' and public.is_admin())
 );
 
 create policy "Profiles are updateable by owner or admin"
@@ -198,11 +200,6 @@ using (
 with check (
   (select auth.uid()) = user_id or public.is_admin()
 );
-
-create policy "Public can view active profiles"
-on public.profiles for select
-to public
-using (status = 'active');
 
 -- Roles Policies (Read: Authenticated, Write: Admin only)
 create policy "Roles are viewable by authenticated users"

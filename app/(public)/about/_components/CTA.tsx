@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function CTASection() {
   return (
@@ -11,13 +12,15 @@ export function CTASection() {
         <p className="text-lg text-zinc-600 mb-8 max-w-2xl mx-auto">
           Ready to start your next project? We'd love to hear from you and discuss how we can help bring your vision to life.
         </p>
-        <Link 
-          href="/contact"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-zinc-900 text-white font-bold hover:bg-red-600 transition-colors group"
+        <Button
+          asChild
+          className="group inline-flex items-center gap-2 p-6 text-sm font-mono tracking-widest uppercase"
         >
-          Get in Touch
-          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-        </Link>
+          <Link href="/contact">
+            GET IN TOUCH
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

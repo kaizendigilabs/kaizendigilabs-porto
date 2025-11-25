@@ -42,7 +42,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-8 py-24 relative z-10">
-        <SectionDivider label="07 — FAQ" />
+        <SectionDivider label="FAQ" />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 lg:gap-24 items-start">
           {/* LEFT: Header & Intro */}
@@ -116,7 +116,7 @@ function FAQItem({ index, item, isActive, onToggle }: FAQItemProps) {
         </span>
 
         <span
-          className={`shrink-0 flex h-8 w-8 items-center justify-center border border-zinc-200 rounded-full text-zinc-400 transition-all duration-300 ${isActive ? 'bg-zinc-900 text-white border-zinc-900 rotate-180' : 'group-hover:border-zinc-900 group-hover:text-zinc-900'
+          className={`shrink-0 flex h-8 w-8 items-center justify-center text-zinc-400 transition-all duration-300 ${isActive ? 'text-zinc-900 rotate-180' : 'group-hover:text-zinc-900'
             }`}
         >
           {isActive ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
