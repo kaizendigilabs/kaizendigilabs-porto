@@ -6,5 +6,11 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*'],
+  matcher: [
+    /*
+     * Only match /dashboard routes (protected)
+     * All other routes are public (homepage, login, etc.)
+     */
+    '/dashboard/:path*',
+  ],
 }
