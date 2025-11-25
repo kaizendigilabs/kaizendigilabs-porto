@@ -93,7 +93,7 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                       type="button"
                       onClick={() => handleCategoryChange(category)}
                       className={cn(
-                        "text-left text-sm font-mono tracking-widest uppercase transition-all duration-300 flex items-center gap-3 group",
+                        "text-left text-sm font-mono tracking-widest uppercase transition-all duration-300 flex items-center gap-3 group cursor-pointer",
                         isActive
                           ? "text-red-600 font-bold translate-x-2"
                           : "text-zinc-400 hover:text-zinc-900 hover:translate-x-1"

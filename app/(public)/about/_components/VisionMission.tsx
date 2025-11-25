@@ -3,6 +3,29 @@
 import { Quote } from 'lucide-react';
 import React from 'react';
 
+const MISSIONS = [
+    {
+        id: '01',
+        title: 'Solutions for Business',
+        description: 'Providing technology solutions and creative services that drive efficiency, competitiveness, and sustainability for businesses in the digital era.'
+    },
+    {
+        id: '02',
+        title: 'Collaboration with Educational Institutions',
+        description: 'Collaborating with educational institutions to build digital platforms that are interactive, adaptive, and aligned with the needs of learning in the digital era.'
+    },
+    {
+        id: '03',
+        title: 'Empowering the Younger Generation',
+        description: 'Empowering Indonesia\'s younger generation through training, digital projects, and collaborative spaces to hone their creativity and technological skills.'
+    },
+    {
+        id: '04',
+        title: 'Kaizen Culture',
+        description: 'Implementing a "Kaizen" (continuous improvement) culture in every work process to drive innovation, service quality, and sustainable growth.'
+    }
+];
+
 export function VisionMissionSection() {
     // Animation refs and effect
     const missionRefs = React.useRef<Array<HTMLElement | null>>([]);
@@ -56,74 +79,28 @@ export function VisionMissionSection() {
                     </h2>
                 </div>
 
-                <div className="space-y-12">
-                    {/* Mission 1 */}
-                    <article ref={(el) => { missionRefs.current[0] = el; }} className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 hover:border-red-600 hover:scale-[1.02] hover:shadow-lg">
-                        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
-                            <div className="space-y-2 flex gap-4">
-                                <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
-                                    01
-                                </span>
-                                <h3 className="font-heading text-2xl font-bold text-zinc-900">
-                                    Solutions for Business
-                                </h3>
+                <div className="space-y-6">
+                    {MISSIONS.map((mission, index) => (
+                        <article
+                            key={mission.id}
+                            ref={(el) => { missionRefs.current[index] = el; }}
+                            className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 frosted-glass/70 hover:border-t-red-600 hover:scale-[1.02]"
+                        >
+                            <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
+                                <div className="space-y-2 flex gap-4">
+                                    <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
+                                        {mission.id}
+                                    </span>
+                                    <h3 className="font-heading text-2xl font-bold text-zinc-900">
+                                        {mission.title}
+                                    </h3>
+                                </div>
+                                <p className="text-base leading-relaxed text-zinc-600 max-w-2xl">
+                                    {mission.description}
+                                </p>
                             </div>
-                            <p className="text-base leading-relaxed text-zinc-600 max-w-2xl">
-                                Providing technology solutions and creative services that drive efficiency, competitiveness, and sustainability for businesses in the digital era.
-                            </p>
-                        </div>
-                    </article>
-
-                    {/* Mission 2 */}
-                    <article ref={(el) => { missionRefs.current[1] = el; }} className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 hover:border-red-600 hover:scale-[1.02] hover:shadow-lg">
-                        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
-                            <div className="space-y-2 flex gap-4">
-                                <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
-                                    02
-                                </span>
-                                <h3 className="font-heading text-2xl font-bold text-zinc-900">
-                                    Collaboration with Educational Institutions
-                                </h3>
-                            </div>
-                            <p className="text-base leading-relaxed text-zinc-600 max-w-2xl">
-                                Collaborating with educational institutions to build digital platforms that are interactive, adaptive, and aligned with the needs of learning in the digital era.
-                            </p>
-                        </div>
-                    </article>
-
-                    {/* Mission 3 */}
-                    <article ref={(el) => { missionRefs.current[2] = el; }} className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 hover:border-red-600 hover:scale-[1.02] hover:shadow-lg">
-                        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
-                            <div className="space-y-2 flex gap-4">
-                                <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
-                                    03
-                                </span>
-                                <h3 className="font-heading text-2xl font-bold text-zinc-900">
-                                    Empowering the Younger Generation
-                                </h3>
-                            </div>
-                            <p className="text-base leading-relaxed text-zinc-600 max-w-2xl">
-                                Empowering Indonesia's younger generation through training, digital projects, and collaborative spaces to hone their creativity and technological skills.
-                            </p>
-                        </div>
-                    </article>
-
-                    {/* Mission 4 */}
-                    <article ref={(el) => { missionRefs.current[3] = el; }} className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 hover:border-red-600 hover:scale-[1.02] hover:shadow-lg">
-                        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
-                            <div className="space-y-2 flex gap-4">
-                                <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
-                                    04
-                                </span>
-                                <h3 className="font-heading text-2xl font-bold text-zinc-900">
-                                    Kaizen Culture
-                                </h3>
-                            </div>
-                            <p className="text-base leading-relaxed text-zinc-600 max-w-2xl">
-                                Implementing a "Kaizen" (continuous improvement) culture in every work process to drive innovation, service quality, and sustainable growth.
-                            </p>
-                        </div>
-                    </article>
+                        </article>
+                    ))}
                 </div>
 
             </div>

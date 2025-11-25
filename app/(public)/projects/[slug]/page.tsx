@@ -82,7 +82,11 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
     return (
         <>
-            <ProjectViewTracker slug={project.slug} title={project.title} />
+            <ProjectViewTracker
+                projectId={project.id}
+                slug={project.slug}
+                title={project.title}
+            />
             <main className="min-h-screen pt-(--header-h)">
                 {/* HEADER SECTION */}
                 <div className="w-full bg-zinc-50 pt-32 pb-16 lg:pt-40 lg:pb-24 px-8">
@@ -142,7 +146,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                             alt={project.title}
                             fill
                             className="object-cover"
-                            priority
+                            preload
                         />
                     </div>
                 </div>

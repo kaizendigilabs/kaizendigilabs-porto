@@ -6,15 +6,16 @@
  */
 
 import Link from 'next/link';
-import { Github, Instagram, Globe } from 'lucide-react';
+import { Github, Instagram, Globe, Linkedin } from 'lucide-react';
 
 const COLUMNS = [
   {
-    title: 'Services',
+    title: 'Pages',
     links: [
-      { href: '/services', label: 'Strategy' },
-      { href: '/services', label: 'Branding' },
-      { href: '/services', label: 'Development' },
+      { href: '/', label: 'Home' },
+      { href: '/services', label: 'Services' },
+      { href: '/projects', label: 'Projects' },
+      { href: '/articles', label: 'Articles' },
     ],
   },
   {
@@ -28,9 +29,10 @@ const COLUMNS = [
 ];
 
 const SOCIALS = [
-  { href: 'https://instagram.com', icon: Instagram, label: 'Instagram' },
-  { href: 'https://github.com', icon: Github, label: 'Github' },
-  { href: 'https://kaizendigilabs.com', icon: Globe, label: 'Website' },
+  { href: 'https://instagram.com/kaizendigilabs', icon: Instagram, label: 'Instagram' },
+  { href: 'https://linkedin.com/in/kaizendigilabs', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'https://github.com/kaizendigitallabs', icon: Github, label: 'Github' },
+  { href: 'https://kaizendigilabs.vercel.app', icon: Globe, label: 'Website' },
 ];
 
 export function Footer() {
@@ -44,9 +46,10 @@ export function Footer() {
           <div className="space-y-6">
             <Link
               href="/"
-              className="text-sm font-semibold tracking-[0.65em] text-background transition-colors hover:text-background/60"
+              className="flex flex-col w-max justify-center transition-colors"
             >
-              KAIZEN
+              <span className="text-sm font-semibold tracking-[0.25em] text-background">KAIZEN</span>
+              <span className="text-[0.5em] tracking-[0.56em] text-center text-muted-background">DIGILABS</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed max-w-xs">
               Crafting digital excellence through precision and continuous improvement.

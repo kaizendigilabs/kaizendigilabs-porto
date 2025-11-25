@@ -35,9 +35,11 @@ export function HeroSection() {
       <div className="w-full bg-zinc-50 text-zinc-950 flex flex-col justify-center items-end lg:items-start px-6 sm:px-8 lg:pl-16 lg:pr-12 xl:pl-32 xl:pr-16 py-12 relative">
         {/* Content Right */}
         <div className="flex flex-col relative z-10 space-y-6 lg:space-y-8 items-end lg:items-start">
+          {/* Red Accent Line */}
+          <div className="w-12 h-1 bg-red-600 mb-8 lg:mb-12" />
+
           <p className="max-w-md lg:max-w-xl xl:max-w-2xl text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-tight font-medium text-zinc-800 text-end lg:text-start">
-            Get innovative and creative ideas to grow your business. We help you
-            craft digital experiences that feel modern, human, and profitable.
+            Unlock your business potential through creative innovation. We provide digital solutions to scale effectively in the modern era.
           </p>
 
           {/* CTA Button */}
@@ -45,7 +47,7 @@ export function HeroSection() {
             variant="ghost"
             className="group text-sm font-semibold tracking-widest uppercase hover:bg-transparent hover:text-zinc-600 p-0"
           >
-            Start Project
+            Get In Touch
             <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>

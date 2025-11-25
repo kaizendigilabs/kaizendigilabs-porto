@@ -26,6 +26,7 @@ create table if not exists public.articles (
   image_url   text,
   author_id   uuid references public.profiles(user_id),
   published   boolean default false,
+  views       integer default 0 not null, -- Total pageviews for public display
   display_order integer default 0,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
@@ -43,6 +44,7 @@ create table if not exists public.projects (
   image_url   text,
   link        text,
   published   boolean default false,
+  views       integer default 0 not null, -- Total pageviews for analytics
   display_order integer default 0,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
@@ -56,6 +58,7 @@ create table if not exists public.services (
   description text,
   capabilities text[],
   published   boolean default false,
+  views       integer default 0 not null, -- Total pageviews for analytics
   display_order integer default 0,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
@@ -314,3 +317,65 @@ on public.article_tags for delete
 to authenticated
 using (public.is_admin());
 
+
+-- Index for author lookup performance
+CREATE INDEX IF NOT EXISTS idx_articles_author_id ON public.articles(author_id);
+
+
+-- =====================================================
+-- VIEWS TRACKING
+-- =====================================================
+
+-- Indexes for views sorting (Top Insights, Popular content)
+CREATE INDEX IF NOT EXISTS idx_articles_views 
+ON public.articles(views DESC) 
+WHERE published = true;
+
+CREATE INDEX IF NOT EXISTS idx_projects_views 
+ON public.projects(views DESC) 
+WHERE published = true;
+
+CREATE INDEX IF NOT EXISTS idx_services_views 
+ON public.services(views DESC);
+
+-- Database functions for atomic view increments
+CREATE OR REPLACE FUNCTION increment_article_views(article_id uuid)
+RETURNS void AS $$
+BEGIN
+  UPDATE public.articles 
+  SET views = views + 1 
+  WHERE id = article_id AND published = true;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+CREATE OR REPLACE FUNCTION increment_project_views(project_id uuid)
+RETURNS void AS $$
+BEGIN
+  UPDATE public.projects 
+  SET views = views + 1 
+  WHERE id = project_id AND published = true;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+CREATE OR REPLACE FUNCTION increment_service_views(service_id uuid)
+RETURNS void AS $$
+BEGIN
+  UPDATE public.services 
+  SET views = views + 1 
+  WHERE id = service_id;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+-- Grant execute permissions (public can increment)
+GRANT EXECUTE ON FUNCTION increment_article_views TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION increment_project_views TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION increment_service_views TO anon, authenticated;
+
+-- Documentation comments
+COMMENT ON COLUMN public.articles.views IS 'Total pageviews for public display (Top Insights, article cards)';
+COMMENT ON COLUMN public.projects.views IS 'Total pageviews for analytics and popular projects';
+COMMENT ON COLUMN public.services.views IS 'Total pageviews for analytics';
+
+COMMENT ON FUNCTION increment_article_views IS 'Atomic increment of article views counter (called after 3s delay)';
+COMMENT ON FUNCTION increment_project_views IS 'Atomic increment of project views counter (called after 3s delay)';
+COMMENT ON FUNCTION increment_service_views IS 'Atomic increment of service views counter (called after 3s delay)';

@@ -10,14 +10,15 @@ interface SectionDividerProps {
 
 export default function SectionDivider({ label, className, lineClassName }: SectionDividerProps) {
   return (
-    <div className={cn('mb-10 flex w-full items-center gap-4', className)}>
-      <span className="text-xs font-semibold tracking-[0.25em] text-muted-foreground">
+    <div className={cn('mb-10 flex w-full items-center gap-2', className)}>
+      <span className="text-xs font-mono font-semibold tracking-widest text-muted-foreground">
         {label}
       </span>
       <div
-        aria-hidden="true"
-        className={cn('flex-1 border-t opacity-70', lineClassName)}
-        style={{ borderColor: 'var(--color-border)' }}
+        className={cn(
+          'h-px flex-1 bg-linear-to-r from-border to-transparent',
+          lineClassName
+        )}
       />
     </div>
   );

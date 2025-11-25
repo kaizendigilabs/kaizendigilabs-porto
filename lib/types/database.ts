@@ -115,6 +115,7 @@ export type Database = {
           slug: string
           title: string
           updated_at: string
+          views: number
         }
         Insert: {
           author_id?: string | null
@@ -128,6 +129,7 @@ export type Database = {
           slug: string
           title: string
           updated_at?: string
+          views?: number
         }
         Update: {
           author_id?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           slug?: string
           title?: string
           updated_at?: string
+          views?: number
         }
         Relationships: [
           {
@@ -316,6 +319,7 @@ export type Database = {
           slug: string
           title: string
           updated_at: string
+          views: number
           year: string | null
         }
         Insert: {
@@ -331,6 +335,7 @@ export type Database = {
           slug: string
           title: string
           updated_at?: string
+          views?: number
           year?: string | null
         }
         Update: {
@@ -346,6 +351,7 @@ export type Database = {
           slug?: string
           title?: string
           updated_at?: string
+          views?: number
           year?: string | null
         }
         Relationships: []
@@ -376,6 +382,7 @@ export type Database = {
           slug: string
           title: string
           updated_at: string
+          views: number
         }
         Insert: {
           capabilities?: string[] | null
@@ -387,6 +394,7 @@ export type Database = {
           slug: string
           title: string
           updated_at?: string
+          views?: number
         }
         Update: {
           capabilities?: string[] | null
@@ -398,6 +406,7 @@ export type Database = {
           slug?: string
           title?: string
           updated_at?: string
+          views?: number
         }
         Relationships: []
       }
@@ -506,6 +515,18 @@ export type Database = {
     }
     Functions: {
       has_role: { Args: { role_name: string; uid: string }; Returns: boolean }
+      increment_article_views: {
+        Args: { article_id: string }
+        Returns: undefined
+      }
+      increment_project_views: {
+        Args: { project_id: string }
+        Returns: undefined
+      }
+      increment_service_views: {
+        Args: { service_id: string }
+        Returns: undefined
+      }
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {

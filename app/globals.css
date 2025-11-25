@@ -95,3 +95,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .frosted-glass\/10 {
+    @apply border-b border-background/20 backdrop-blur-md shadow-sm bg-background/10;
+  }
+
+  .frosted-glass\/30 {
+    @apply border-b border-background/20 backdrop-blur-md shadow-sm bg-background/30;
+  }
+
+  .frosted-glass\/50 {
+    @apply border-b border-background/20 backdrop-blur-md shadow-sm bg-background/50;
+  }
+
+  .frosted-glass\/70 {
+    @apply border-b border-background/20 backdrop-blur-md shadow-sm bg-background/70;
+  }
+}
