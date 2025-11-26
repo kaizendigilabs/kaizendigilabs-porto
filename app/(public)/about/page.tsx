@@ -22,7 +22,7 @@ export default async function About() {
     <main className="min-h-screen pt-(--header-h)">
       <PageHero
         title="ABOUT US"
-        description="We build collaborative cultures focused on continuous improvement. Discover the story and values behind the Kaizen Digilabs team."
+        description="Kaizen Digilabs is built on a simple idea: small improvements, done consistently, create real impact. Get to know the people and principles behind how we work with our clients."
         kanji="会社"
       />
       <IntroSection />

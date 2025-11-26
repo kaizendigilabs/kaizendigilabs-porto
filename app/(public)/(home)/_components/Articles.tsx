@@ -32,12 +32,18 @@ export function ArticleSection({ articles }: ArticleSectionProps) {
 
         {/* HEADER */}
         <div className="mt-16 mb-16 flex flex-col md:flex-row justify-between items-end gap-8">
-          <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
-            Knowledge
-            <br />
-            Base.
-          </h2>
+          <div className="space-y-4">
+            <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
+              Knowledge
+              <br />
+              Base.
+            </h2>
 
+            <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+              A growing library of articles and resources <br />
+              to help you design, build, and ship better digital products.
+            </p>
+          </div>
           <Link href="/articles" className="group flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-zinc-600 hover:text-zinc-900 transition-colors">
             View All Articles
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />

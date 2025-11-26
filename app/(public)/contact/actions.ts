@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const inquirySchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
-    email: z.string().email('Invalid email address'),
+    email: z.email('Invalid email address'),
     phone: z.string().optional(),
     company: z.string().optional(),
     subject: z.string().min(5, 'Subject must be at least 5 characters'),
@@ -36,9 +36,18 @@ export async function submitInquiry(prevState: InquiryState, formData: FormData)
     });
 
     if (!validatedFields.success) {
+        const fieldErrors: Record<string, string[]> = {};
+        validatedFields.error.issues.forEach((issue) => {
+            const key = issue.path[0] as string;
+            if (!fieldErrors[key]) {
+                fieldErrors[key] = [];
+            }
+            fieldErrors[key].push(issue.message);
+        });
+
         return {
             error: 'Validation failed. Please check your inputs.',
-            fieldErrors: validatedFields.error.flatten().fieldErrors,
+            fieldErrors: fieldErrors as InquiryState['fieldErrors'],
         };
     }
 

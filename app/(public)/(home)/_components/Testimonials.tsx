@@ -80,8 +80,8 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                 <br />
                 Stories.
               </h2>
-              <p className="text-zinc-500 font-medium">
-                Real results from real partnerships.
+              <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+                Real results from long-term partnerships with our clients.
               </p>
             </div>
 

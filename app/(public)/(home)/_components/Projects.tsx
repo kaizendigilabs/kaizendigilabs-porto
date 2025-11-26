@@ -33,6 +33,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       </div>
 
       <div className="mx-auto max-w-7xl px-8 py-24 relative z-10">
+        <SectionDivider label="SELECTED WORKS" />
+
         {/* HEADER */}
         <SectionDivider label="SELECTED WORKS" />
 
@@ -43,6 +45,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               <br />
               Studies.
             </h2>
+            <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+              Real-world projects that show how we solve problems with design and technology.
+            </p>
           </div>
           <Link href="/projects" className="group flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-zinc-600 hover:text-zinc-900 transition-colors">
             View All Projects

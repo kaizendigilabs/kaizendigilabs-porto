@@ -85,7 +85,7 @@ export function ProcessSection() {
             Work.
           </h2>
           <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
-            A systematic approach to continuous improvement and digital excellence.
+            A practical, step-by-step way to plan, build, and improve your digital products.
           </p>
         </div>
 

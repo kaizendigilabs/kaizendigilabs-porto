@@ -38,7 +38,7 @@ export default async function Services() {
     <main className="min-h-screen pt-(--header-h)">
       <PageHero
         title="OUR SERVICES"
-        description="We craft end-to-end digital experiences, covering strategy, production, and continuous optimization, so every service launch feels bold on the big screen."
+        description="We help you plan, design, build, and improve your digital products. From brand identity and content to websites and mobile apps, every service is crafted to be useful today and ready to scale tomorrow."
         kanji="奉仕"
       />
       {(services && services.length > 0) ? (

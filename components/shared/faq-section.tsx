@@ -53,8 +53,8 @@ export function FAQSection({ faqs }: FAQSectionProps) {
                 <br />
                 Questions.
               </h2>
-              <p className="text-zinc-600 font-medium leading-relaxed max-w-sm">
-                Everything you need to know about how we work and what we deliver. Can't find the answer you're looking for?
+              <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+                Everything you need to know about how we work and what we deliver. Still can&apos;t find the answer you&apos;re looking for?
               </p>
             </div>
 

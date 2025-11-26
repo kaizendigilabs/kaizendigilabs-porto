@@ -8,6 +8,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
   return (
@@ -38,17 +39,21 @@ export function HeroSection() {
           {/* Red Accent Line */}
           <div className="w-12 h-1 bg-red-600 mb-8 lg:mb-12" />
 
-          <p className="max-w-md lg:max-w-xl xl:max-w-2xl text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-tight font-medium text-zinc-800 text-end lg:text-start">
-            Unlock your business potential through creative innovation. We provide digital solutions to scale effectively in the modern era.
+          <p className="max-w-md lg:max-w-xl text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-tight font-medium text-zinc-800 text-end lg:text-start">
+            Unlock your business potential with digital products that actually ship and keep improving. <br />
+            We turn your ideas into products that grow with your business.
           </p>
 
           {/* CTA Button */}
           <Button
+            asChild
             variant="ghost"
             className="group text-sm font-semibold tracking-widest uppercase hover:bg-transparent hover:text-zinc-600 p-0"
           >
-            Get In Touch
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <Link href="/services" className="inline-flex items-center">
+              EXPLORE SERVICES
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
         </div>
       </div>

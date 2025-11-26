@@ -33,8 +33,8 @@ export function TeamsSection({ teamMembers }: TeamsSectionProps) {
           <h2 className="font-heading text-5xl lg:text-6xl font-bold text-zinc-900 mb-4">
             Our Team
           </h2>
-          <p className="text-lg text-zinc-600 max-w-2xl">
-            Meet the team behind our digital work. Each member brings a mix of strategic thinking, creativity, and execution that helps turn ideas into real results for our clients.
+          <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+            Meet the team behind our digital work.
           </p>
         </div>
 

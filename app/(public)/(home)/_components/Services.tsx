@@ -41,7 +41,8 @@ export function ServicesSection({ services }: ServicesSectionProps) {
             </h2>
           </div>
           <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed pb-2">
-            We combine strategy, design, and technology to build brands that lead their industry.
+            We combine strategy, design, and engineering <br />
+            to ship digital products that work in the real world and keep getting better over time.
           </p>
         </div>
 

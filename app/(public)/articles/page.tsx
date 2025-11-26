@@ -103,7 +103,7 @@ export default async function Articles({ searchParams }: { searchParams: Promise
     <main className="min-h-screen pt-(--header-h)">
       <PageHero
         title="OUR INSIGHTS"
-        description="A collection of essays and perspectives on design, technology, and digital strategy. Curated for the modern web."
+        description="Thoughts, guides, and lessons on design, technology, and digital strategy. All written to help you make better decisions in your next digital project."
         kanji="記事"
       />
 
