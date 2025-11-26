@@ -36,6 +36,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         <SectionDivider label="SELECTED WORKS" />
 
         {/* HEADER */}
+        <SectionDivider label="SELECTED WORKS" />
+
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="space-y-4">
             <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
