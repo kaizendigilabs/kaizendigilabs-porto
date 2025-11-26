@@ -11,6 +11,7 @@ import {
     Handshake,
     Zap
 } from 'lucide-react';
+import SectionDivider from '@/components/shared/section-divider';
 
 const values = [
     {
@@ -130,21 +131,19 @@ export function WhyChooseUs() {
             </div>
 
             <div className="mx-auto max-w-7xl px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24">
+                <SectionDivider label="WHY CHOOSE US" />
 
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24">
                     {/* LEFT COLUMN: STICKY HEADER */}
                     <div className="hidden lg:block sticky top-32 self-start h-fit">
                         <div className="space-y-8">
                             <div className="space-y-4">
-                                <h2 className="font-mono text-sm font-semibold uppercase tracking-widest text-red-600">
-                                    Why Choose Us
-                                </h2>
-                                <h3 className="font-heading text-5xl font-bold tracking-tight text-zinc-950 leading-tight">
+                                <h2 className="font-heading text-5xl font-bold tracking-tighter text-zinc-950 leading-tight">
                                     Built on Values,<br />
                                     Driven by Results.
-                                </h3>
-                                <p className="font-body text-lg text-zinc-600 leading-relaxed max-w-md">
-                                    We don't just build software; we build partnerships. Our philosophy is rooted in continuous improvement and a deep commitment to your success.
+                                </h2>
+                                <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+                                    We do not just ship software. We build long-term partnerships. Our work is guided by continuous improvement and a clear commitment to your business outcomes.
                                 </p>
                             </div>
 
@@ -165,13 +164,13 @@ export function WhyChooseUs() {
 
                     {/* MOBILE HEADER */}
                     <div className="lg:hidden space-y-4 mb-8">
-                        <h2 className="font-mono text-sm font-semibold uppercase tracking-widest text-red-600">
-                            Why Choose Us
-                        </h2>
-                        <h3 className="font-heading text-4xl font-bold tracking-tight text-zinc-950 leading-tight">
+                        <h2 className="font-heading text-4xl font-bold tracking-tight text-zinc-950 leading-tight">
                             Built on Values,<br />
                             Driven by Results.
-                        </h3>
+                        </h2>
+                        <p className="max-w-md font-body text-lg text-zinc-600 leading-relaxed">
+                            We do not just ship software. We build long-term partnerships. Our work is guided by continuous improvement and a clear commitment to your business outcomes.
+                        </p>
                     </div>
 
                     {/* RIGHT COLUMN: SCROLLABLE LIST */}

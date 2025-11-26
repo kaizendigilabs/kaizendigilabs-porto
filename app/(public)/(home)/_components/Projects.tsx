@@ -33,9 +33,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       </div>
 
       <div className="mx-auto max-w-7xl px-8 py-24 relative z-10">
-        {/* HEADER */}
         <SectionDivider label="SELECTED WORKS" />
 
+        {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="space-y-4">
             <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
@@ -43,6 +43,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               <br />
               Studies.
             </h2>
+            <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+              Real-world projects that show how we solve problems with design and technology.
+            </p>
           </div>
           <Link href="/projects" className="group flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-zinc-600 hover:text-zinc-900 transition-colors">
             View All Projects

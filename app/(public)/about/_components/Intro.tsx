@@ -31,29 +31,25 @@ export function IntroSection() {
           {/* Right side: Multi-paragraph narrative */}
           <div className="space-y-6 text-zinc-600 leading-relaxed">
             <p className="text-lg">
-              Founded in 2020, Kaizen Digilabs emerged from a simple belief: that continuous improvement isn't just a philosophy, but a practice that transforms how businesses connect with their audiences.
+              Founded in 2025, Kaizen Digilabs grew from a simple belief that continuous improvement is not only a philosophy, but a daily practice that changes how businesses connect with their audiences.
             </p>
 
-            <p>
-              We started as a small team of designers and strategists who saw the gap between beautiful design and meaningful business outcomes. Today, we bridge that gap for companies ready to evolve their digital presence with intention and clarity.
+            <p className='text-lg'>
+              We started as a small team of designers and technologists who saw a gap between beautiful design and real business results. Today, we help close that gap for companies that want to evolve their digital presence with intention and clarity.
             </p>
 
             {/* Philosophy Callout */}
             <div className="my-8 py-8 border-l-4 border-zinc-500 pl-8 bg-zinc-50">
               <p className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 mb-2">
-                "Iterate, Innovate, Improve"
+                &quot;Iterate, Innovate, Improve&quot;
               </p>
               <p className="text-sm text-zinc-600">
                 Our philosophy of continuous improvement in action
               </p>
             </div>
 
-            <p>
-              Our mission is to help organizations build brands that resonate. We believe in the power of thoughtful design, strategic thinking, and collaborative partnerships. Every project is an opportunity to refine, improve, and create something that lasts.
-            </p>
-
-            <p className="text-zinc-900 font-medium">
-              We believe in progress over perfection, clarity over complexity, and results that speak for themselves.
+            <p className='text-lg'>
+              Our mission is to help organizations build brands and products that truly resonate. We believe in thoughtful design, clear strategy, and collaborative partnerships. Every project is a chance to refine, improve, and create something that lasts. We believe in progress over perfection, clarity over complexity, and results that speak for themselves.
             </p>
           </div>
 

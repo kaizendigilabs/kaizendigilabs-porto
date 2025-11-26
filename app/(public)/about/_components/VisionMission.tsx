@@ -7,22 +7,22 @@ const MISSIONS = [
     {
         id: '01',
         title: 'Solutions for Business',
-        description: 'Providing technology solutions and creative services that drive efficiency, competitiveness, and sustainability for businesses in the digital era.'
+        description: 'Providing technology solutions and creative services that improve efficiency, competitiveness, and long-term sustainability for businesses in the digital era.'
     },
     {
         id: '02',
         title: 'Collaboration with Educational Institutions',
-        description: 'Collaborating with educational institutions to build digital platforms that are interactive, adaptive, and aligned with the needs of learning in the digital era.'
+        description: 'Working with educational institutions to build digital platforms that are interactive, adaptive, and aligned with the needs of modern learning.'
     },
     {
         id: '03',
         title: 'Empowering the Younger Generation',
-        description: 'Empowering Indonesia\'s younger generation through training, digital projects, and collaborative spaces to hone their creativity and technological skills.'
+        description: 'Empowering Indonesia’s younger generation through training, digital projects, and collaborative spaces that help them grow their creativity and technology skills.'
     },
     {
         id: '04',
         title: 'Kaizen Culture',
-        description: 'Implementing a "Kaizen" (continuous improvement) culture in every work process to drive innovation, service quality, and sustainable growth.'
+        description: 'We practice a Kaizen (改善) culture of continuous improvement in every work process to drive innovation, service quality, and sustainable growth.'
     }
 ];
 
@@ -67,7 +67,7 @@ export function VisionMissionSection() {
                     <div className="relative">
                         <Quote className="absolute -top-12 -left-12 w-32 h-32 text-zinc-100 fill-zinc-100 z-1" />
                         <p className="relative font-heading text-3xl lg:text-4xl font-bold text-zinc-900 leading-tight z-2">
-                            To become a trusted partner in building a digital ecosystem that makes an impact for businesses, educational institutions, and the younger generation in Indonesia.
+                            To be a trusted partner in building a digital ecosystem that creates real impact for businesses, educational institutions, and the younger generation in Indonesia.
                         </p>
                     </div>
                 </div>

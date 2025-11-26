@@ -18,7 +18,7 @@ export function CTASection() {
                     className="group inline-flex items-center gap-2 p-6 text-sm font-mono tracking-widest uppercase"
                 >
                     <Link href="/contact">
-                        Start Project
+                        LET&apos;S TALK
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </Button>

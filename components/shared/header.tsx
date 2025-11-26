@@ -72,7 +72,7 @@ export function Header() {
           asChild
           className="hidden lg:inline-flex font-mono tracking-widest"
         >
-          <Link href="/contact">HIRE US</Link>
+          <Link href="/contact">LET&apos;S TALK</Link>
         </Button>
 
         {/* Mobile Menu Trigger */}
@@ -102,9 +102,9 @@ export function Header() {
               })}
               <Button
                 asChild
-                className="mt-4 font-mono tracking-widest"
+                className="mt-4 font-mono"
               >
-                <Link href="/contact" onClick={() => setIsOpen(false)}>HIRE US</Link>
+                <Link href="/contact" onClick={() => setIsOpen(false)}>LET&apos;S TALK</Link>
               </Button>
             </nav>
           </SheetContent>

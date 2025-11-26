@@ -19,7 +19,7 @@ export default async function Projects() {
     <main className="min-h-screen pt-(--header-h)">
       <PageHero
         title="OUR WORK"
-        description="A curated selection of digital experiences we've crafted. Each project represents our commitment to excellence in design and engineering."
+        description="A curated selection of projects we have shipped for clients. Each one shows how we bring design and engineering together to solve real problems on the web and mobile."
         kanji="作品"
       />
       {(projects && projects.length > 0) ? (

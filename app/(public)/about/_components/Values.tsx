@@ -17,21 +17,21 @@ const VALUES: ValueItem[] = [
     slug: 'creativity',
     title: 'Creativity',
     description:
-      'We strive to bring fresh, imaginative ideas and perspectives to every project. Our creative process is rooted in curiosity and exploration, allowing us to discover unique solutions that stand out in the market.',
+      'We bring fresh, imaginative ideas and perspectives to every project. Our creative process is rooted in curiosity and exploration so we can discover solutions that stand out in the market.',
   },
   {
     id: '02',
     slug: 'excellence',
     title: 'Excellence',
     description:
-      'We are committed to delivering work that meets a higher standard in every detail. Excellence is not just about the final output, but also about the process, the craft, and the dedication we bring to every interaction.',
+      'We are committed to delivering work that meets a higher standard in every detail. Excellence is not only about the final output, but also about the process, the craft, and the dedication we bring to every interaction.',
   },
   {
     id: '03',
     slug: 'innovation',
     title: 'Innovation',
     description:
-      'We embrace experimentation and stay ahead of the curve with our solutions. Innovation means challenging the status quo, testing new approaches, and continuously evolving to meet the changing needs of our clients.',
+      'We embrace experimentation and stay ahead of the curve with our solutions. Innovation means challenging the status quo, testing new approaches, and continuously improving to meet the changing needs of our clients.',
   },
   {
     id: '04',
