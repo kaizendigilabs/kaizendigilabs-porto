@@ -47,7 +47,7 @@ export default function Error({
 
                 {/* DESCRIPTION */}
                 <p className="font-body text-lg lg:text-xl text-zinc-600 max-w-lg mx-auto mb-4 leading-relaxed">
-                    We're experiencing technical difficulties. <br />
+                    We&apos;re experiencing technical difficulties. <br />
                     Our team has been notified and is working on a fix.
                 </p>
 

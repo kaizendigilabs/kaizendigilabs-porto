@@ -21,8 +21,6 @@ export default async function EditTeamMemberPage({ params }: { params: Promise<{
         notFound();
     }
 
-    const socialLinks = (member.social_links as any) || {};
-
     return (
         <div className="flex flex-col gap-8">
             <div className="flex items-center gap-4">

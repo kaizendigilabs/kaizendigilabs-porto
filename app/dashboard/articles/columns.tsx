@@ -18,15 +18,15 @@ import Link from "next/link"
 import { deleteArticle } from "./actions"
 import { toast } from "sonner"
 
-export const columns: ColumnDef<ArticleRecord>[] = [
+// Extend ArticleRecord to include database fields
+type ArticleWithPublished = ArticleRecord & { published?: boolean }
+
+export const columns: ColumnDef<ArticleWithPublished>[] = [
     {
         id: "select",
         header: ({ table }) => (
             <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
+                checked={table.getIsAllPageRowsSelected()}
                 onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
             />
@@ -54,23 +54,22 @@ export const columns: ColumnDef<ArticleRecord>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => (
-            <div className="font-medium">
-                <Link href={`/dashboard/articles/${row.original.slug}`} className="hover:underline">
-                    {row.getValue("title")}
-                </Link>
-            </div>
-        ),
+        cell: ({ row }) => {
+            return <div className="font-medium">{row.getValue("title")}</div>
+        },
+    },
+    {
+        accessorKey: "category",
+        header: "Category",
+        cell: ({ row }) => {
+            return <div className="text-muted-foreground">{row.getValue("category")}</div>
+        },
     },
     {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            // Assuming 'published' boolean field in DB maps to status
-            // But ArticleRecord type has 'published' boolean? Let's check data/articles.ts
-            // The DB schema has 'published' boolean. The type in data/articles.ts might not have it yet.
-            // I'll assume I extended the type or will cast it.
-            const isPublished = (row.original as any).published
+            const isPublished = row.original.published
             return (
                 <Badge variant={isPublished ? "default" : "secondary"}>
                     {isPublished ? "Published" : "Draft"}

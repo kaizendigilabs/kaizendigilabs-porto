@@ -2,15 +2,6 @@
 // 2. ABOUT INTRO SECTION
 // =========================
 
-import Image from 'next/image';
-
-const ABOUT_BENTO_IMAGES = [
-  '/images/about/bento-1.jpg',
-  '/images/about/bento-2.jpg',
-  '/images/about/bento-3.jpg',
-  '/images/about/bento-4.jpg',
-];
-
 export function IntroSection() {
   return (
     <section className="w-full bg-zinc-50">

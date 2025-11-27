@@ -36,7 +36,7 @@ export default function ContactPage() {
                             </div>
                             <h3 className="text-2xl font-heading font-bold text-zinc-950 mb-4">Message Sent!</h3>
                             <p className="text-zinc-950 mb-8 max-w-md mx-auto">
-                                Thank you for reaching out. We've received your inquiry and will get back to you within 24 hours.
+                                Thank you for reaching out. We&apos;ve received your inquiry and will get back to you within 24 hours.
                             </p>
                             <button
                                 onClick={() => window.location.reload()}

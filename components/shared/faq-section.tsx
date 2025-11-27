@@ -33,35 +33,39 @@ export function FAQSection({ faqs }: FAQSectionProps) {
   }
 
   return (
-    <section className="w-full bg-zinc-50 relative overflow-hidden">
+    <section className="w-full bg-zinc-50 relative">
       {/* DECORATIVE KANJI WATERMARK */}
-      <div className="absolute bottom-0 right-16 pointer-events-none select-none z-0 opacity-5">
-        <span className="font-body font-bold text-[15rem] leading-none text-zinc-900">
-          質問
-        </span>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute bottom-0 right-16 select-none z-0 opacity-5">
+          <span className="font-body font-bold text-[15rem] leading-none text-zinc-900">
+            質問
+          </span>
+        </div>
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-8 py-24 relative z-10">
         <SectionDivider label="FAQ" />
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 lg:gap-24 items-start">
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 lg:gap-24">
           {/* LEFT: Header & Intro */}
-          <div className="space-y-8 sticky top-24">
-            <div className="space-y-4">
-              <h2 className="font-heading text-5xl font-bold tracking-tighter text-zinc-950 leading-tight">
-                Common
-                <br />
-                Questions.
-              </h2>
-              <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
-                Everything you need to know about how we work and what we deliver. Still can&apos;t find the answer you&apos;re looking for?
-              </p>
-            </div>
+          <div className="relative">
+            <div className="space-y-8 sticky top-24">
+              <div className="space-y-4">
+                <h2 className="font-heading text-5xl font-bold tracking-tighter text-zinc-950 leading-tight">
+                  Common
+                  <br />
+                  Questions.
+                </h2>
+                <p className="max-w-md text-lg text-zinc-600 font-medium leading-relaxed">
+                  Everything you need to know about how we work and what we deliver. Still can&apos;t find the answer you&apos;re looking for?
+                </p>
+              </div>
 
-            <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-red-600 hover:text-red-700 transition-colors">
-              Contact Support
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-            </Link>
+              <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-red-600 hover:text-red-700 transition-colors">
+                Contact Support
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
 
           {/* RIGHT: Accordion */}
@@ -106,7 +110,7 @@ function FAQItem({ index, item, isActive, onToggle }: FAQItemProps) {
       <button
         type="button"
         onClick={() => onToggle(index)}
-        className="flex w-full items-start justify-between gap-4 py-6 lg:py-8 text-left transition-colors hover:bg-zinc-50/50"
+        className="flex w-full items-start justify-between gap-4 py-6 lg:py-8 text-left transition-colors hover:bg-zinc-50/50 cursor-pointer"
       >
         <span
           className={`text-xl lg:text-2xl font-heading font-medium transition-colors duration-300 ${isActive ? 'text-zinc-900' : 'text-zinc-500 group-hover:text-zinc-900'

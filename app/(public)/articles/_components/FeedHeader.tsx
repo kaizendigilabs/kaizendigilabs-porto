@@ -1,8 +1,6 @@
 'use client';
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { LayoutList, LayoutGrid, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { LayoutGrid, List, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface FeedHeaderProps {
@@ -73,7 +71,7 @@ export function FeedHeader({
                     size="icon"
                     aria-label="List View"
                 >
-                    <LayoutList className="w-5 h-5" />
+                    <List className="w-5 h-5" />
                 </Button>
                 <Button
                     onClick={() => onViewModeChange('grid')}

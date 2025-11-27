@@ -18,7 +18,7 @@ export async function GET(req: Request) {
         const supabase = await createServerClient();
 
         // Simple query to keep the database connection active
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('roles')
             .select('id')
             .limit(1);

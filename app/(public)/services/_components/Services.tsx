@@ -3,17 +3,10 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight } from 'lucide-react';
-
-interface ServiceItem {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  capabilities: string[] | null;
-}
+import { Tables } from '@/lib/types/database';
 
 interface ServicesSectionProps {
-  services: any[]; // Replace 'any' with proper type if available
+  services: Tables<'services'>[];
 }
 
 export function ServicesSection({ services }: ServicesSectionProps) {
@@ -21,15 +14,10 @@ export function ServicesSection({ services }: ServicesSectionProps) {
   const mappedServices = services.map((service, index) => ({
     ...service,
     displayId: String(index + 1).padStart(2, '0'),
+    capabilities: service.capabilities || [], // Ensure capabilities is not null
   }));
 
   const [activeId, setActiveId] = useState(mappedServices[0]?.slug || '');
-
-  useEffect(() => {
-    if (mappedServices.length > 0 && !activeId) {
-      setActiveId(mappedServices[0].slug);
-    }
-  }, [mappedServices, activeId]);
 
   useEffect(() => {
     const handleScroll = () => {

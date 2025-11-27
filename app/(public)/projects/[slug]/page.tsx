@@ -3,7 +3,7 @@ import { ProjectViewTracker } from '@/components/analytics/project-view-tracker'
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { OptimizedImage } from '@/components/shared/optimized-image';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { CTASection } from '@/components/shared/cta-section';
 import type { Metadata } from 'next';
 
@@ -74,7 +74,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
         `)
         .eq('project_id', project?.id || '');
 
-    const services = projectServices?.map(ps => (ps.services as any)?.title).filter(Boolean) || [];
+    const services = projectServices?.map(ps => (ps.services as { id: string; title: string } | null)?.title).filter((title): title is string => Boolean(title)) || [];
 
     if (!project) {
         notFound();

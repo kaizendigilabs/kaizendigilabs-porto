@@ -9,17 +9,10 @@ import { OptimizedImage } from '@/components/shared/optimized-image';
 import Link from 'next/link';
 import SectionDivider from '@/components/shared/section-divider';
 
-interface ProjectItem {
-  id: string;
-  year: string;
-  title: string;
-  category: string;
-  image_url: string;
-  slug: string;
-}
+import { Tables } from '@/lib/types/database';
 
 interface ProjectsSectionProps {
-  projects: any[]; // Replace 'any' with proper type if available
+  projects: Tables<'projects'>[];
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
@@ -36,8 +29,6 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         <SectionDivider label="SELECTED WORKS" />
 
         {/* HEADER */}
-        <SectionDivider label="SELECTED WORKS" />
-
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="space-y-4">
             <h2 className="font-heading text-5xl lg:text-7xl font-bold tracking-tighter text-zinc-950">
@@ -67,11 +58,11 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   );
 }
 
-function ProjectItem({ project }: { project: ProjectItem }) {
+function ProjectItem({ project }: { project: Tables<'projects'> }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative w-full border-t border-zinc-200 py-12 flex flex-col md:flex-row items-baseline md:items-center justify-between gap-4 hover:bg-background-70 hover:backdrop-blur-md transition-colors duration-500"
+      className="group relative w-full border-t border-zinc-200 py-8 flex flex-col md:flex-row items-baseline md:items-center justify-between gap-4 hover:bg-background-70 hover:backdrop-blur-md transition-colors duration-500"
     >
       {/* HOVER IMAGE REVEAL */}
       <div className="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 w-[400px] h-[250px] opacity-0 z-20 group-hover:opacity-100 transition-all duration-500 pointer-events-none rotate-3 group-hover:rotate-0 scale-90 group-hover:scale-100 origin-center">
@@ -86,17 +77,17 @@ function ProjectItem({ project }: { project: ProjectItem }) {
       </div>
 
       {/* TEXT CONTENT */}
-      <div className="flex items-baseline gap-8 md:gap-16 z-10 relative">
-        <span className="font-mono text-sm text-zinc-400 group-hover:text-zinc-600 transition-colors">
+      <div className="flex items-center gap-8 z-10 relative">
+        <span className="font-mono text-sm text-zinc-400 group-hover:text-zinc-600 transition-all">
           {project.year}
         </span>
-        <h3 className="font-heading text-3xl md:text-5xl font-semibold text-zinc-900 group-hover:translate-x-4 transition-transform duration-500">
+        <h3 className="font-heading text-3xl md:text-5xl font-semibold text-zinc-900 group-hover:translate-x-4 transition-all duration-500">
           {project.title}
         </h3>
       </div>
 
       <div className="flex items-center gap-4 z-10 relative">
-        <span className="font-mono text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-900 transition-colors">
+        <span className="font-mono text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-900 transition-all">
           {project.category}
         </span>
       </div>

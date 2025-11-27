@@ -8,17 +8,8 @@ interface BreadcrumbItem {
   href?: string;
 }
 
-interface UseBreadcrumbsOptions {
-  baseItems?: BreadcrumbItem[];
-}
-
-export function useBreadcrumbs(options?: UseBreadcrumbsOptions) {
+export function useBreadcrumbs() {
   const pathname = usePathname();
-
-  // Serialize baseItems to stabilize dependency comparison for React Compiler
-  const serializedBaseItems = options?.baseItems
-    ? JSON.stringify(options.baseItems)
-    : null;
 
   return useMemo(() => {
     const segments = pathname.split('/').filter(Boolean);
@@ -53,5 +44,5 @@ export function useBreadcrumbs(options?: UseBreadcrumbsOptions) {
     });
 
     return items;
-  }, [pathname, serializedBaseItems]);
+  }, [pathname]);
 }

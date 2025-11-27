@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
-import { Check, Trash } from "lucide-react";
-import { EditorBubbleItem, useEditor } from "novel";
+import { Trash } from "lucide-react";
+import { useEditor } from "novel";
 import { Button } from "@/components/ui/button";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface LinkSelectorProps {
     open: boolean;
@@ -19,12 +19,14 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
     const { editor } = useEditor();
     const [url, setUrl] = useState("");
 
-    useEffect(() => {
+    const [prevOpen, setPrevOpen] = useState(open);
+    if (prevOpen !== open) {
+        setPrevOpen(open);
         if (open) {
             const linkUrl = editor?.getAttributes("link").href || "";
             setUrl(linkUrl);
         }
-    }, [open, editor]);
+    }
 
     if (!editor) return null;
 

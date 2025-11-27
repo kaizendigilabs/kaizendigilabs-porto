@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -51,9 +51,11 @@ export function ArticleFeed({ articles }: ArticleFeedProps) {
     const hasMore = displayCount < articleCards.length;
 
     // Reset display count when filter changes
-    useEffect(() => {
+    const [prevFilter, setPrevFilter] = useState(tagFilter + searchQuery);
+    if (prevFilter !== tagFilter + searchQuery) {
+        setPrevFilter(tagFilter + searchQuery);
         setDisplayCount(ARTICLES_PER_PAGE);
-    }, [tagFilter, searchQuery]);
+    }
 
     const handleLoadMore = () => {
         setIsLoading(true);
@@ -131,7 +133,7 @@ export function ArticleFeed({ articles }: ArticleFeedProps) {
                     {!hasMore && displayedArticles.length > ARTICLES_PER_PAGE && (
                         <div className="w-full py-12 text-center">
                             <p className="text-sm font-mono text-zinc-400">
-                                You've reached the end
+                                You&apos;ve reached the end
                             </p>
                         </div>
                     )}
