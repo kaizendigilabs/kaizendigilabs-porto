@@ -11,13 +11,17 @@ import {
   IconWebsite
 } from '@/components/shared/icons';
 
+interface SocialLinks {
+  [key: string]: string | undefined;
+}
+
 export interface TeamMember {
   user_id: string;
   full_name: string | null;
   job_title: string | null;
   bio: string | null;
   avatar: string | null;
-  social_links: any | null; // Using any for JSONB for now
+  social_links: SocialLinks | null;
   display_order?: number | null;
   status?: 'active' | 'inactive' | null;
   created_at?: string;

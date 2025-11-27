@@ -100,9 +100,10 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: inquiries } = useSWR('/api/inquiries', fetcher)
   const [user, setUser] = useState(data.user)
-  const supabase = createBrowserClient()
 
   useEffect(() => {
+    const supabase = createBrowserClient()
+    
     async function getUser() {
       const { data: { user: authUser } } = await supabase.auth.getUser()
 
@@ -126,7 +127,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [])
 
   // Calculate unread inquiries
-  const unreadCount = inquiries?.filter((i: any) => i.status === 'unread').length || 0
+  const unreadCount = inquiries?.filter((i: { status: string }) => i.status === 'unread').length || 0
 
   // Update navMain with badge
   const navMainWithBadge = data.navMain.map(item => {

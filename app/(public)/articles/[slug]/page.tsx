@@ -59,6 +59,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 // Helper to extract outline from Tiptap content
+// Tiptap content structure is complex and dynamically typed
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function extractOutline(content: any) {
   const outline: { id: string; title: string; level: 1 | 2 }[] = [];
 
@@ -66,8 +68,10 @@ function extractOutline(content: any) {
     return outline;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content.content.forEach((block: any) => {
     if (block.type === 'heading') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const text = block.content?.map((n: any) => n.text).join('') || '';
       if (text) {
         const level = block.attrs?.level;
@@ -111,6 +115,8 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
     `)
     .eq('article_id', article.id);
 
+  // Tiptap tags structure from Supabase join
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tags = articleTags?.map(at => (at.tags as any)).filter(Boolean) || [];
 
   // Generate outline from content
@@ -193,6 +199,8 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
 
           {/* MAIN CONTENT */}
           <div className="w-full">
+            {/* Tiptap content is dynamically typed */}
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             <ArticleContent content={article.content as any} />
 
             {/* TAGS */}
@@ -200,6 +208,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
               <div className="mt-12">
                 <h3 className="text-sm font-mono uppercase tracking-widest text-zinc-400 mb-4">Tags</h3>
                 <div className="flex flex-wrap gap-2">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {tags.map((tag: any) => (
                     <Button
                       key={tag.id}

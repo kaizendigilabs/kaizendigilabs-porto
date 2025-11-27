@@ -87,7 +87,7 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
                 {items.map((item, index) => (
                     <EditorBubbleItem
                         key={index}
-                        onSelect={(editor) => {
+                        onSelect={() => {
                             item.command();
                             onOpenChange(false);
                         }}

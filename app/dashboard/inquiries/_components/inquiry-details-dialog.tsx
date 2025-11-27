@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { InquiryRecord } from "@/hooks/useInquiries";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Mail, Phone, Building2, User } from "lucide-react";
+import { Mail, Phone, Building2, User } from "lucide-react";
 
 interface InquiryDetailsDialogProps {
     inquiry: InquiryRecord | null;

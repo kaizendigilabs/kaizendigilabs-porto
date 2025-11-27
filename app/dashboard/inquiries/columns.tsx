@@ -13,11 +13,17 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import { InquiryRecord } from "@/hooks/useInquiries"
-import { Badge } from "@/components/ui/badge"
 import { deleteInquiry, updateInquiryStatus } from "./actions"
 import { toast } from "sonner"
 
 import { cn } from "@/lib/utils"
+
+// Extend Window interface for inquiry details
+declare global {
+    interface Window {
+        openInquiryDetails?: (inquiry: InquiryRecord) => void;
+    }
+}
 
 export const columns: ColumnDef<InquiryRecord>[] = [
     {
@@ -60,7 +66,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
             const email = row.original.email;
             const isUnread = row.original.status === "new";
             return (
-                <div className="flex flex-col cursor-pointer hover:opacity-80" onClick={() => (window as any).openInquiryDetails?.(row.original)}>
+                <div className="flex flex-col cursor-pointer hover:opacity-80" onClick={() => window.openInquiryDetails?.(row.original)}>
                     <span className={cn("text-foreground", isUnread ? "font-bold" : "font-medium")}>{name}</span>
                     <span className={cn("text-xs", isUnread ? "font-bold text-foreground" : "text-muted-foreground")}>{email}</span>
                 </div>
@@ -76,7 +82,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
             return (
                 <div
                     className={cn("cursor-pointer hover:opacity-80", isUnread ? "font-bold text-foreground" : "")}
-                    onClick={() => (window as any).openInquiryDetails?.(row.original)}
+                    onClick={() => window.openInquiryDetails?.(row.original)}
                 >
                     {company || "-"}
                 </div>
@@ -92,7 +98,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
             return (
                 <div
                     className={cn("cursor-pointer truncate max-w-[150px]", isUnread ? "font-bold text-foreground" : "")}
-                    onClick={() => (window as any).openInquiryDetails?.(row.original)}
+                    onClick={() => window.openInquiryDetails?.(row.original)}
                 >
                     {subject}
                 </div>
@@ -108,7 +114,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
             return (
                 <div
                     className={cn("cursor-pointer hover:opacity-80 truncate max-w-[200px]", isUnread ? "font-bold text-foreground" : "text-muted-foreground")}
-                    onClick={() => (window as any).openInquiryDetails?.(row.original)}
+                    onClick={() => window.openInquiryDetails?.(row.original)}
                 >
                     {message}
                 </div>
@@ -131,7 +137,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
         id: "actions",
         cell: ({ row }) => {
             const inquiry = row.original
-            const openDetails = () => (window as any).openInquiryDetails?.(inquiry);
+            const openDetails = () => window.openInquiryDetails?.(inquiry);
 
             return (
                 <DropdownMenu>

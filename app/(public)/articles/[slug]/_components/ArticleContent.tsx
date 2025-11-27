@@ -7,12 +7,12 @@ interface TiptapNode {
     type: string;
     content?: TiptapNode[];
     text?: string;
-    attrs?: Record<string, any>;
-    marks?: { type: string; attrs?: any }[];
+    attrs?: Record<string, unknown>;
+    marks?: { type: string; attrs?: Record<string, unknown> }[];
 }
 
 interface ArticleContentProps {
-    content: TiptapNode | TiptapNode[] | any;
+    content: TiptapNode | TiptapNode[] | unknown;
 }
 
 export function ArticleContent({ content }: ArticleContentProps) {
@@ -21,10 +21,13 @@ export function ArticleContent({ content }: ArticleContentProps) {
     // Handle different content structures
     if (Array.isArray(content)) {
         blocks = content;
-    } else if (content?.type === 'doc' && Array.isArray(content.content)) {
-        blocks = content.content;
-    } else if (content?.content && Array.isArray(content.content)) {
-        blocks = content.content;
+    } else if (content && typeof content === 'object') {
+        const node = content as TiptapNode;
+        if (node.type === 'doc' && Array.isArray(node.content)) {
+            blocks = node.content;
+        } else if (node.content && Array.isArray(node.content)) {
+            blocks = node.content;
+        }
     }
 
     if (!blocks.length) return null;
@@ -41,7 +44,7 @@ export function ArticleContent({ content }: ArticleContentProps) {
 function BlockRenderer({ block }: { block: TiptapNode }) {
     switch (block.type) {
         case 'heading':
-            const level = block.attrs?.level || 2;
+            const level = (block.attrs?.level as number) || 2;
             const className = cn("font-heading font-bold text-zinc-900 mt-8 mb-4 scroll-mt-32",
                 level === 1 ? "text-4xl" :
                     level === 2 ? "text-3xl" : "text-2xl"
@@ -90,15 +93,15 @@ function BlockRenderer({ block }: { block: TiptapNode }) {
                 <figure className="my-12">
                     <div className="relative w-full aspect-video bg-zinc-100 rounded-lg overflow-hidden">
                         <OptimizedImage
-                            src={block.attrs?.src || ''}
-                            alt={block.attrs?.alt || ''}
+                            src={(block.attrs?.src as string) || ''}
+                            alt={(block.attrs?.alt as string) || ''}
                             fill
                             className="object-cover"
                         />
                     </div>
-                    {block.attrs?.title && (
+                    {(block.attrs?.title as string) && (
                         <figcaption className="text-sm text-zinc-500 text-center mt-3 italic">
-                            {block.attrs.title}
+                            {(block.attrs?.title as string)}
                         </figcaption>
                     )}
                 </figure>
@@ -123,7 +126,7 @@ function TextRenderer({ content }: { content?: TiptapNode[] }) {
                             if (mark.type === 'bold') text = <strong key={mark.type}>{text}</strong>;
                             if (mark.type === 'italic') text = <em key={mark.type}>{text}</em>;
                             if (mark.type === 'code') text = <code key={mark.type} className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono text-red-600">{text}</code>;
-                            if (mark.type === 'link') text = <a key={mark.type} href={mark.attrs?.href} target="_blank" rel="noopener noreferrer" className="text-red-600 hover:underline">{text}</a>;
+                            if (mark.type === 'link') text = <a key={mark.type} href={mark.attrs?.href as string} target="_blank" rel="noopener noreferrer" className="text-red-600 hover:underline">{text}</a>;
                         });
                     }
                     return <span key={index}>{text}</span>;

@@ -10,12 +10,13 @@ import { createArticle } from "../actions"
 import { toast } from "sonner"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import type { JSONContent } from "novel"
 
 export default function NewArticlePage() {
     const router = useRouter()
     const [title, setTitle] = useState("")
     const [slug, setSlug] = useState("")
-    const [content, setContent] = useState<any>(null)
+    const [content, setContent] = useState<JSONContent | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -36,7 +37,7 @@ export default function NewArticlePage() {
                 toast.success("Article created")
                 router.push("/dashboard/articles")
             }
-        } catch (error) {
+        } catch {
             toast.error("Something went wrong")
         } finally {
             setIsSubmitting(false)

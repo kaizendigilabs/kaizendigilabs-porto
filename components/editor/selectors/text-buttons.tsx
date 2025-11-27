@@ -44,7 +44,7 @@ export const TextButtons = () => {
             {items.map((item, index) => (
                 <EditorBubbleItem
                     key={index}
-                    onSelect={(editor) => {
+                    onSelect={() => {
                         item.command();
                     }}
                 >

@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorRoot, EditorContent, EditorCommand, EditorCommandItem, EditorCommandEmpty, EditorBubble, EditorBubbleItem } from "novel";
+import { EditorRoot, EditorContent, EditorCommand, EditorCommandItem, EditorCommandEmpty, EditorBubble, type JSONContent } from "novel";
 import { useState } from "react";
 import { defaultExtensions } from "./editor-extensions";
 import { NodeSelector } from "./editor/selectors/node-selector";
@@ -11,8 +11,8 @@ import { slashCommand, suggestionItems } from "./editor/slash-command";
 
 
 interface EditorProps {
-    initialValue?: any;
-    onChange: (value: any) => void;
+    initialValue?: JSONContent;
+    onChange: (value: JSONContent) => void;
 }
 
 export default function ArticleEditor({ initialValue, onChange }: EditorProps) {
@@ -28,7 +28,7 @@ export default function ArticleEditor({ initialValue, onChange }: EditorProps) {
                 <EditorContent
                     extensions={extensions}
                     initialContent={initialValue}
-                    onUpdate={({ editor }: any) => {
+                    onUpdate={({ editor }) => {
                         const json = editor.getJSON();
                         onChange(json);
                     }}
@@ -42,10 +42,10 @@ export default function ArticleEditor({ initialValue, onChange }: EditorProps) {
                     {/* Slash Command Menu */}
                     <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
                         <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
-                        {suggestionItems.map((item: any) => (
+                        {suggestionItems.map((item) => (
                             <EditorCommandItem
                                 value={item.title}
-                                onCommand={(val: any) => item.command?.(val)}
+                                onCommand={(val) => item.command?.(val)}
                                 className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
                                 key={item.title}
                             >

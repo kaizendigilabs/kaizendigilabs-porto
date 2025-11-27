@@ -2,6 +2,16 @@
 
 import { createServerClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import type { JSONContent } from 'novel'
+
+interface ArticleInput {
+    title: string;
+    slug: string;
+    content?: JSONContent | null;
+    excerpt?: string | null;
+    image_url?: string | null;
+    published?: boolean;
+}
 
 export async function deleteArticle(slug: string) {
     const supabase = await createServerClient()
@@ -19,7 +29,7 @@ export async function deleteArticle(slug: string) {
     return { success: true }
 }
 
-export async function createArticle(data: any) {
+export async function createArticle(data: ArticleInput) {
     const supabase = await createServerClient()
 
     // Basic validation
@@ -46,7 +56,7 @@ export async function createArticle(data: any) {
     return { success: true }
 }
 
-export async function updateArticle(oldSlug: string, data: any) {
+export async function updateArticle(oldSlug: string, data: Partial<ArticleInput>) {
     const supabase = await createServerClient()
 
     const { error } = await supabase

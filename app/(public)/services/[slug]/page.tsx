@@ -4,7 +4,7 @@ import { ServiceViewTracker } from '@/components/analytics/service-view-tracker'
 import { PageHero } from '@/components/shared/page-hero';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { Metadata } from 'next';
 
 interface ServiceDetailPageProps {
@@ -99,7 +99,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                                     Ready to start?
                                 </h3>
                                 <p className="text-zinc-400 mb-8 max-w-md relative z-10">
-                                    Let's discuss how we can help you achieve your goals with our {service.title} services.
+                                    Let&apos;s discuss how we can help you achieve your goals with our {service.title} services.
                                 </p>
                                 <Button size="lg" asChild className="bg-white text-zinc-900 hover:bg-zinc-200 rounded-none font-mono tracking-widest relative z-10">
                                     <Link href="/contact">GET IN TOUCH</Link>

@@ -9,17 +9,10 @@ import { OptimizedImage } from '@/components/shared/optimized-image';
 import Link from 'next/link';
 import SectionDivider from '@/components/shared/section-divider';
 
-interface ProjectItem {
-  id: string;
-  year: string;
-  title: string;
-  category: string;
-  image_url: string;
-  slug: string;
-}
+import { Tables } from '@/lib/types/database';
 
 interface ProjectsSectionProps {
-  projects: any[]; // Replace 'any' with proper type if available
+  projects: Tables<'projects'>[];
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
@@ -65,7 +58,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   );
 }
 
-function ProjectItem({ project }: { project: ProjectItem }) {
+function ProjectItem({ project }: { project: Tables<'projects'> }) {
   return (
     <Link
       href={`/projects/${project.slug}`}

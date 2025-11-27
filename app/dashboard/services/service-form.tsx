@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { createService, updateService } from './actions';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 
 interface ServiceFormProps {
     service?: {
@@ -22,7 +20,6 @@ interface ServiceFormProps {
 }
 
 export function ServiceForm({ service }: ServiceFormProps) {
-    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

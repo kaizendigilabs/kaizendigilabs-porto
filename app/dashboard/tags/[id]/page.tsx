@@ -11,10 +11,11 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { toast } from 'sonner';
+import type { Tables } from '@/lib/types/database';
 
 export default function EditTagPage({ params }: { params: Promise<{ id: string }> }) {
     const [id, setId] = useState<string>('');
-    const [tag, setTag] = useState<any>(null);
+    const [tag, setTag] = useState<Tables<'tags'> | null>(null);
     const [loading, setLoading] = useState(true);
     const [isPending, startTransition] = useTransition();
 

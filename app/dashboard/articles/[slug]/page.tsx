@@ -11,25 +11,28 @@ import { toast } from "sonner"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useArticles } from "@/hooks/useArticles"
+import type { JSONContent } from "novel"
+import type { Tables } from "@/lib/types/database"
 
 export default function EditArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     const router = useRouter()
     const { slug: paramSlug } = use(params)
     const { articles } = useArticles()
-    const [article, setArticle] = useState<any>(null)
+    const [article, setArticle] = useState<Tables<'articles'> | null>(null)
     const [title, setTitle] = useState("")
     const [slug, setSlug] = useState("")
-    const [content, setContent] = useState<any>(null)
+    const [content, setContent] = useState<JSONContent | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
         if (articles) {
             const found = articles.find((a) => a.slug === paramSlug)
             if (found) {
-                setArticle(found)
+                // Cast to Tables type since useArticles returns ArticleRecord
+                setArticle(found as unknown as Tables<'articles'>)
                 setTitle(found.title)
                 setSlug(found.slug)
-                setContent(found.content)
+                setContent(found.content as JSONContent)
             }
         }
     }, [articles, paramSlug])
@@ -51,7 +54,7 @@ export default function EditArticlePage({ params }: { params: Promise<{ slug: st
                 toast.success("Article updated")
                 router.push("/dashboard/articles")
             }
-        } catch (error) {
+        } catch {
             toast.error("Something went wrong")
         } finally {
             setIsSubmitting(false)
@@ -96,7 +99,7 @@ export default function EditArticlePage({ params }: { params: Promise<{ slug: st
 
                 <div className="space-y-2">
                     <Label>Content</Label>
-                    <ArticleEditor initialValue={content} onChange={setContent} />
+                    <ArticleEditor initialValue={content ?? undefined} onChange={setContent} />
                 </div>
 
                 <div className="flex justify-end gap-4">

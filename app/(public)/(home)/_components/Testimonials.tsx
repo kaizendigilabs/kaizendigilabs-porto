@@ -28,13 +28,8 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Return early if no testimonials
-  if (!testimonials || testimonials.length === 0) {
-    return null;
-  }
-
   const handleNext = useCallback(() => {
-    if (isAnimating) return;
+    if (isAnimating || !testimonials.length) return;
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -43,7 +38,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   }, [isAnimating, testimonials.length]);
 
   const handlePrev = useCallback(() => {
-    if (isAnimating) return;
+    if (isAnimating || !testimonials.length) return;
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
@@ -53,11 +48,17 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 
   // Auto-play
   useEffect(() => {
+    if (!testimonials || testimonials.length === 0) return;
     const timer = setInterval(handleNext, 6000);
     return () => clearInterval(timer);
-  }, [handleNext]);
+  }, [handleNext, testimonials]);
 
   const activeTestimonial = testimonials[currentIndex];
+
+  // Return early if no testimonials
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="w-full bg-zinc-50 relative overflow-hidden">

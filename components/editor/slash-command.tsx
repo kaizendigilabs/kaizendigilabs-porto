@@ -5,7 +5,6 @@ import {
     Heading3,
     List,
     ListOrdered,
-    MessageSquarePlus,
     Text,
     TextQuote,
     Code,
@@ -150,6 +149,7 @@ export const suggestionItems = createSuggestionItems([
         title: "Image",
         description: "Upload an image from your computer.",
         searchTerms: ["photo", "picture", "media", "img"],
+        // eslint-disable-next-line jsx-a11y/alt-text
         icon: <Image size={18} />,
         command: ({ editor, range }) => {
             editor.chain().focus().deleteRange(range).run();

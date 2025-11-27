@@ -44,10 +44,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+interface TrafficData {
+  date: string;
+  desktop: number;
+  mobile: number;
+}
+
 export function ChartAreaInteractive() {
   const isMobile = useIsMobile()
   const [timeRange, setTimeRange] = React.useState("30d")
-  const [data, setData] = React.useState<any[]>([])
+  const [data, setData] = React.useState<TrafficData[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {

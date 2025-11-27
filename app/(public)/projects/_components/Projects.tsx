@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { OptimizedImage } from '@/components/shared/optimized-image';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Tables } from '@/lib/types/database';
 
 // =============================================================
 // PROJECTS DATA
@@ -12,21 +13,13 @@ import { cn } from '@/lib/utils';
 // =============================================================
 // PROJECTS DATA
 // =============================================================
-
-interface ProjectItem {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  year: string;
-  image_url: string;
-  size: string | null;
-}
 
 // Helpers
-function getCategories(projects: ProjectItem[]): string[] {
+function getCategories(projects: Tables<'projects'>[]): string[] {
   const set = new Set<string>();
-  for (const p of projects) set.add(p.category);
+  for (const p of projects) {
+    if (p.category) set.add(p.category);
+  }
   return ['All', ...Array.from(set)];
 }
 
@@ -35,7 +28,7 @@ function getCategories(projects: ProjectItem[]): string[] {
 // =========================
 
 interface ProjectSectionProps {
-  projects: any[]; // Replace 'any' with proper type if available
+  projects: Tables<'projects'>[];
 }
 
 export function ProjectSection({ projects }: ProjectSectionProps) {
@@ -154,7 +147,7 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                   key={project.id}
                   project={project}
                   className={cn(
-                    project.size === 'full' ? "md:col-span-2" : "md:col-span-1",
+                    "md:col-span-1",
                     "animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-backwards"
                   )}
                   style={{ animationDelay: `${index * 100}ms` }}
@@ -182,7 +175,7 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
 // ==============================
 
 interface ProjectCardProps {
-  project: ProjectItem;
+  project: Tables<'projects'>;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -193,8 +186,8 @@ function ProjectCard({ project, className, style }: ProjectCardProps) {
       {/* IMAGE CONTAINER */}
       <div className="relative overflow-hidden w-full bg-zinc-200 aspect-16/10">
         <OptimizedImage
-          src={project.image_url}
-          alt={project.title}
+          src={project.image_url || '/images/placeholder.svg'}
+          alt={project.title || 'Project'}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

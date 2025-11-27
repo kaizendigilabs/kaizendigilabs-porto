@@ -8,16 +8,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { updateTeamMember } from '../actions';
 import Link from 'next/link';
-import { ArrowLeft, Instagram, Twitter, Facebook, Github, Linkedin, Globe } from 'lucide-react';
+import { Instagram, Twitter, Facebook, Github, Linkedin, Globe } from 'lucide-react';
+import type { Tables } from '@/lib/types/database';
 
 interface EditTeamMemberFormProps {
-    member: any; // Using any to avoid complex type duplication for now, or import Profile type
+    member: Tables<'profiles'>;
     id: string;
 }
 
 export function EditTeamMemberForm({ member, id }: EditTeamMemberFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const socialLinks = (member.social_links as any) || {};
+    const socialLinks = (member.social_links as Record<string, string>) || {};
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();

@@ -26,6 +26,26 @@ export type FAQ = {
     updated_at: string;
 };
 
+function PublishedSwitch({ faq }: { faq: FAQ }) {
+    const router = useRouter();
+
+    return (
+        <Switch
+            checked={faq.published}
+            onCheckedChange={async (checked) => {
+                try {
+                    await toggleFAQPublished(faq.id, checked);
+                    toast.success(`FAQ ${checked ? 'published' : 'unpublished'}`);
+                    router.refresh();
+                } catch (error) {
+                    toast.error('Failed to update status');
+                    console.error(error);
+                }
+            }}
+        />
+    );
+}
+
 export const columns: ColumnDef<FAQ>[] = [
     {
         accessorKey: 'question',
@@ -45,25 +65,7 @@ export const columns: ColumnDef<FAQ>[] = [
         accessorKey: 'published',
         header: 'Published',
         cell: ({ row }) => {
-            const faq = row.original;
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const router = useRouter();
-
-            return (
-                <Switch
-                    checked={faq.published}
-                    onCheckedChange={async (checked) => {
-                        try {
-                            await toggleFAQPublished(faq.id, checked);
-                            toast.success(`FAQ ${checked ? 'published' : 'unpublished'}`);
-                            router.refresh();
-                        } catch (error) {
-                            toast.error('Failed to update status');
-                            console.error(error);
-                        }
-                    }}
-                />
-            );
+            return <PublishedSwitch faq={row.original} />;
         },
     },
     {

@@ -38,6 +38,8 @@ export const defaultExtensions = [
         horizontalRule: false, // We'll use the extension separately
     }),
     Placeholder.configure({
+        // Tiptap's node type is complex and not easily typed
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         placeholder: ({ node }: { node: any }) => {
             if (node.type.name === "heading") {
                 return `Heading ${node.attrs.level}`;

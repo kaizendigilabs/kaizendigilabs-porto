@@ -30,7 +30,7 @@ export default function NotFound() {
 
                 {/* DESCRIPTION */}
                 <p className="font-body text-lg lg:text-xl text-zinc-600 max-w-md mx-auto mb-12 leading-relaxed">
-                    The page you're looking for doesn't exist or has been moved.
+                    The page you&apos;re looking for doesn&apos;t exist or has been moved.
                 </p>
 
                 {/* CTA BUTTONS */}

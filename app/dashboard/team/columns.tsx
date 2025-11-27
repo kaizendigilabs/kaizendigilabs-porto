@@ -23,7 +23,7 @@ export type TeamMember = {
     job_title: string | null;
     bio: string | null;
     avatar: string | null;
-    social_links: any | null;
+    social_links: Record<string, string> | null;
     display_order: number | null;
     status: 'active' | 'inactive' | null;
     phone: string | null;
