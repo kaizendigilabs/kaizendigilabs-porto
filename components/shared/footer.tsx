@@ -39,7 +39,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-zinc-950 text-zinc-400">
       {/* MAIN FOOTER (Dark Background) */}
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16 xl:p-0 2xl:px-6">
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24">
 
           {/* Brand & Socials */}
