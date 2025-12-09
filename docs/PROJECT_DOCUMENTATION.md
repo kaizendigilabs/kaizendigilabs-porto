@@ -50,7 +50,7 @@
 
 ### UI Components
 - **Lucide React** - Icon library (v0.554.0)
-- **@headlessui/react** - Unstyled accessible components (v2.2.9)
+- **Shadcn UI** - Component library (v2.2.0)
 - **Sonner** - Toast notifications (v2.0.7)
 
 ### Backend & Database
@@ -315,7 +315,6 @@ export default function ClientComponent() {
 - Modular UI components in `components/ui/`
 - Variant-based styling with CVA
 - Light mode focused design
-- Accessible components with Headless UI
 
 ### 5. **Performance Monitoring**
 - Vercel Speed Insights integration
@@ -383,7 +382,6 @@ The database schema includes extensive **HARDENING CHECKLIST** comments for prod
 | **Auth** | Supabase Auth | 2.81.1 | Authentication & sessions |
 | **Styling** | Tailwind CSS | 4.x | Utility-first CSS |
 | **UI Components** | Lucide React | 0.554.0 | Icons |
-| | Headless UI | 2.2.9 | Accessible components |
 | **State** | React 19 hooks | — | Local state management |
 | **Forms** | — | — | (TBD - future feature) |
 | **Deployment** | Vercel | — | Hosting & CI/CD |
