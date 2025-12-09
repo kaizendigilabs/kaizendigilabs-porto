@@ -53,7 +53,7 @@ Mandatory rules for state management in all projects:
 Framework:       Next.js 16 + React 19 + TypeScript 5
 Database:        PostgreSQL (Supabase)
 Styling:         Tailwind CSS 4
-UI:              Lucide Icons + Headless UI
+UI:              Lucide Icons & Shadcn UI
 Deployment:      Vercel
 Package Manager: PNPM
 ```
