@@ -224,6 +224,38 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiry_replies: {
+        Row: {
+          created_at: string
+          id: string
+          inquiry_id: string
+          message: string
+          sender: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          inquiry_id: string
+          message: string
+          sender?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          inquiry_id?: string
+          message?: string
+          sender?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_replies_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar: string | null

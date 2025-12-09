@@ -163,3 +163,25 @@ using (
   ((select auth.uid())::text = (storage.foldername(name))[1] or public.is_admin())
 );
 
+
+-- 4. INQUIRY REPLIES
+create table if not exists public.inquiry_replies (
+  id          uuid primary key default gen_random_uuid(),
+  inquiry_id  uuid not null references public.inquiries(id) on delete cascade,
+  message     text not null,
+  sender      text, -- Captured from user session
+  created_at  timestamptz not null default now()
+);
+
+alter table public.inquiry_replies enable row level security;
+
+-- Inquiry Replies Policies
+create policy "Replies are viewable by admin only"
+on public.inquiry_replies for select
+to authenticated
+using (public.is_admin());
+
+create policy "Replies are insertable by admin only"
+on public.inquiry_replies for insert
+to authenticated
+with check (public.is_admin());
