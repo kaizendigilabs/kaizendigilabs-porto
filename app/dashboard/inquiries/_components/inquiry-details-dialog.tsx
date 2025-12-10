@@ -9,7 +9,13 @@ import {
 } from "@/components/ui/dialog";
 import { InquiryRecord } from "@/hooks/useInquiries";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Building2, User } from "lucide-react";
+import { Mail, Phone, Building2, User, Send, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { replyInquiry } from "../actions";
+import { toast } from "sonner";
+import { Separator } from "@/components/ui/separator";
 
 interface InquiryDetailsDialogProps {
     inquiry: InquiryRecord | null;
@@ -17,12 +23,37 @@ interface InquiryDetailsDialogProps {
     onOpenChange: (open: boolean) => void;
 }
 
+
 export function InquiryDetailsDialog({ inquiry, open, onOpenChange }: InquiryDetailsDialogProps) {
+    const [replyMessage, setReplyMessage] = useState("");
+    const [isSending, setIsSending] = useState(false);
+
     if (!inquiry) return null;
+
+    const handleReply = async () => {
+        if (!replyMessage.trim()) return;
+
+        setIsSending(true);
+        try {
+            const result = await replyInquiry(inquiry.id, replyMessage, inquiry.email, inquiry.subject);
+            
+            if (result.error) {
+                toast.error(result.error);
+            } else {
+                toast.success("Reply sent successfully");
+                setReplyMessage("");
+                onOpenChange(false);
+            }
+        } catch (error) {
+            toast.error("An unexpected error occurred");
+        } finally {
+            setIsSending(false);
+        }
+    };
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <div className="flex items-center justify-between mr-8">
                         <DialogTitle className="text-xl font-bold">{inquiry.subject}</DialogTitle>
@@ -58,19 +89,48 @@ export function InquiryDetailsDialog({ inquiry, open, onOpenChange }: InquiryDet
                         {inquiry.company && (
                             <div className="flex items-center gap-3 text-sm">
                                 <Building2 className="w-4 h-4 text-muted-foreground" />
-                                <span>{inquiry.company}</span>
+                                <span className="text-muted-foreground">{inquiry.company}</span>
                             </div>
                         )}
                     </div>
 
                     <div className="bg-muted/30 p-4 rounded-lg md:col-span-2">
-                        <h4 className="text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Message</h4>
-                        <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                        <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Message</h4>
+                        <p className="text-sm whitespace-pre-wrap leading-relaxed text-foreground/90">
                             {inquiry.message}
                         </p>
+                    </div>
+
+                    <div className="md:col-span-2 space-y-4">
+                         <Separator />
+                         <div className="space-y-2">
+                            <h4 className="text-sm font-medium">Reply to {inquiry.name}</h4>
+                            <Textarea 
+                                placeholder="Type your reply here..." 
+                                className="min-h-[120px]"
+                                value={replyMessage}
+                                onChange={(e) => setReplyMessage(e.target.value)}
+                            />
+                            <div className="flex justify-end">
+                                <Button onClick={handleReply} disabled={isSending || !replyMessage.trim()}>
+                                    {isSending ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="w-4 h-4 mr-2" />
+                                            Send Reply
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
+                         </div>
                     </div>
                 </div>
             </DialogContent>
         </Dialog>
     );
 }
+
