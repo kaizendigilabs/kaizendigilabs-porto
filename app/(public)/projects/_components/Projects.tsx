@@ -187,7 +187,6 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, className, style }: ProjectCardProps) {
   const clientName = project.testimonials?.[0]?.name;
-  const clientCompany = project.testimonials?.[0]?.company;
 
   return (
     <article className={cn("group flex flex-col gap-6 cursor-pointer", className)} style={style}>
@@ -236,9 +235,7 @@ function ProjectCard({ project, className, style }: ProjectCardProps) {
               {project.year}
             </span>
             {clientName && (
-                <span className="text-xs text-zinc-500 mt-1">
-                    w/ {clientName} {clientCompany && `(${clientCompany})`}
-                </span>
+                null
             )}
            </div>
         </div>
