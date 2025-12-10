@@ -334,54 +334,62 @@ export type Database = {
       }
       projects: {
         Row: {
-          category: string | null
-          client: string | null
           created_at: string
           description: string | null
           display_order: number | null
           id: string
           image_url: string | null
-          link: string | null
+          project_link: string | null
           published: boolean | null
           slug: string
+          tech_stack: string[] | null
+          testimonial_id: string | null
           title: string
           updated_at: string
           views: number
           year: string | null
         }
         Insert: {
-          category?: string | null
-          client?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
           id?: string
           image_url?: string | null
-          link?: string | null
+          project_link?: string | null
           published?: boolean | null
           slug: string
+          tech_stack?: string[] | null
+          testimonial_id?: string | null
           title: string
           updated_at?: string
           views?: number
           year?: string | null
         }
         Update: {
-          category?: string | null
-          client?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
           id?: string
           image_url?: string | null
-          link?: string | null
+          project_link?: string | null
           published?: boolean | null
           slug?: string
+          tech_stack?: string[] | null
+          testimonial_id?: string | null
           title?: string
           updated_at?: string
           views?: number
           year?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "projects_testimonial_id_fkey"
+            columns: ["testimonial_id"]
+            isOneToOne: false
+            referencedRelation: "testimonials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       roles: {
         Row: {
@@ -466,7 +474,6 @@ export type Database = {
       }
       testimonials: {
         Row: {
-          avatar: string | null
           company: string | null
           content: string
           created_at: string
@@ -474,12 +481,10 @@ export type Database = {
           id: string
           name: string
           published: boolean | null
-          rating: number | null
           role: string | null
           updated_at: string
         }
         Insert: {
-          avatar?: string | null
           company?: string | null
           content: string
           created_at?: string
@@ -487,12 +492,10 @@ export type Database = {
           id?: string
           name: string
           published?: boolean | null
-          rating?: number | null
           role?: string | null
           updated_at?: string
         }
         Update: {
-          avatar?: string | null
           company?: string | null
           content?: string
           created_at?: string
@@ -500,7 +503,6 @@ export type Database = {
           id?: string
           name?: string
           published?: boolean | null
-          rating?: number | null
           role?: string | null
           updated_at?: string
         }

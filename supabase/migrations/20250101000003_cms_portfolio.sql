@@ -5,10 +5,11 @@
  *
  * CONTENTS:
  * 1. Services: Company offerings.
- * 2. Projects: Portfolio items.
- * 3. Project Services: Junction table.
- * 4. RLS Policies: Row Level Security.
- * 5. Views Tracking: Logic for counting views.
+ * 2. Testimonials: Client feedback.
+ * 3. Projects: Portfolio items (Linked to Testimonials).
+ * 4. Project Services: Junction table.
+ * 5. RLS Policies: Row Level Security.
+ * 6. Views Tracking: Logic for counting views.
  */
 
 -- 1. SERVICES
@@ -25,17 +26,30 @@ create table if not exists public.services (
   updated_at  timestamptz not null default now()
 );
 
--- 2. PROJECTS
+-- 2. TESTIMONIALS
+create table if not exists public.testimonials (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  role        text,
+  company     text,
+  content     text not null,
+  published   boolean default false,
+  display_order integer default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+-- 3. PROJECTS
 create table if not exists public.projects (
   id          uuid primary key default gen_random_uuid(),
   title       text not null,
   slug        text not null unique,
   description text,
-  client      text,
+  testimonial_id uuid references public.testimonials(id), -- Linked client info
   year        text,
-  category    text,
+  tech_stack  text[], -- Array of technologies used
   image_url   text,
-  link        text,
+  project_link text,
   published   boolean default false,
   views       integer default 0 not null, -- Total pageviews for analytics
   display_order integer default 0,
@@ -43,7 +57,7 @@ create table if not exists public.projects (
   updated_at  timestamptz not null default now()
 );
 
--- 3. PROJECT_SERVICES (Junction Table)
+-- 4. PROJECT_SERVICES (Junction Table)
 create table if not exists public.project_services (
   project_id uuid not null references public.projects(id) on delete cascade,
   service_id uuid not null references public.services(id) on delete cascade,
@@ -53,9 +67,11 @@ create table if not exists public.project_services (
 
 create index if not exists idx_project_services_project_id on public.project_services(project_id);
 create index if not exists idx_project_services_service_id on public.project_services(service_id);
+create index if not exists idx_projects_testimonial_id on public.projects(testimonial_id);
 
--- 4. RLS POLICIES
+-- 5. RLS POLICIES
 alter table public.services enable row level security;
+alter table public.testimonials enable row level security;
 alter table public.projects enable row level security;
 alter table public.project_services enable row level security;
 
@@ -78,6 +94,28 @@ with check (public.is_admin());
 
 create policy "Services are deletable by admin only"
 on public.services for delete
+to authenticated
+using (public.is_admin());
+
+-- TESTIMONIALS
+create policy "Testimonials are viewable by everyone"
+on public.testimonials for select
+to anon, authenticated
+using (true);
+
+create policy "Testimonials are insertable by admin only"
+on public.testimonials for insert
+to authenticated
+with check (public.is_admin());
+
+create policy "Testimonials are updateable by admin only"
+on public.testimonials for update
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+create policy "Testimonials are deletable by admin only"
+on public.testimonials for delete
 to authenticated
 using (public.is_admin());
 
@@ -125,7 +163,7 @@ on public.project_services for delete
 to authenticated
 using (public.is_admin());
 
--- 5. VIEWS TRACKING
+-- 6. VIEWS TRACKING
 
 CREATE INDEX IF NOT EXISTS idx_projects_views 
 ON public.projects(views DESC) 
