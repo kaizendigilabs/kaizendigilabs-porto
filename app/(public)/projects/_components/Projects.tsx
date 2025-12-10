@@ -93,12 +93,12 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                       className={cn(
                         "text-left text-sm font-mono tracking-widest uppercase transition-all duration-300 flex items-center gap-3 group cursor-pointer",
                         isActive
-                          ? "text-red-600 font-bold translate-x-2"
+                          ? "text-brand font-bold translate-x-2"
                           : "text-zinc-400 hover:text-zinc-900 hover:translate-x-1"
                       )}
                     >
                       {isActive && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
                       )}
                       {category}
                     </button>
@@ -120,7 +120,7 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                     className={cn(
                       "px-4 py-2 text-xs font-mono tracking-widest uppercase border transition-colors",
                       isActive
-                        ? "border-red-600 text-red-600 font-bold bg-red-50"
+                        ? "border-brand text-brand font-bold bg-muted"
                         : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
                     )}
                   >
@@ -208,10 +208,10 @@ function ProjectCard({ project, className, style }: ProjectCardProps) {
       {/* INFO */}
       <div className="flex flex-col gap-3">
         <div className="flex items-baseline justify-between border-b border-zinc-200 pb-4 transition-colors group-hover:border-zinc-900">
-          <h3 className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 group-hover:text-red-600 transition-colors duration-300">
+          <h3 className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 group-hover:text-brand transition-colors duration-300">
             {project.title}
           </h3>
-          <ArrowUpRight className="w-5 h-5 text-zinc-400 group-hover:text-red-600 transition-colors duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transform" />
+          <ArrowUpRight className="w-5 h-5 text-zinc-400 group-hover:text-brand transition-colors duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transform" />
         </div>
 
         <div className="flex justify-between items-start gap-4">

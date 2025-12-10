@@ -57,8 +57,8 @@ export function ArticleTOC({ outline }: ArticleTOCProps) {
                                     'block transition-colors hover:text-zinc-900',
                                     isLevel2 ? 'pl-8' : 'pl-4',
                                     isActive
-                                        ? 'text-zinc-900 font-medium border-l-2 border-red-600 -ml-px'
-                                        : 'hover:text-red-600'
+                                        ? 'text-zinc-900 font-medium border-l-2 border-brand -ml-px'
+                                        : 'hover:text-brand'
                                 )}
                             >
                                 {item.title}

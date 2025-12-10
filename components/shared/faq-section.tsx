@@ -61,7 +61,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
                 </p>
               </div>
 
-              <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-red-600 hover:text-red-700 transition-colors">
+              <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-brand hover:text-muted-foreground transition-colors">
                 Contact Support
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
               </Link>

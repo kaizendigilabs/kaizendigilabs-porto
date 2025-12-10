@@ -108,7 +108,7 @@ export function ValuesSection() {
                   >
                     <span className={cn(
                       "font-mono text-sm transition-colors duration-300",
-                      activeId === value.slug ? "text-red-600" : "text-zinc-400"
+                      activeId === value.slug ? "text-brand" : "text-zinc-400"
                     )}>
                       {value.id}
                     </span>
@@ -119,7 +119,7 @@ export function ValuesSection() {
                       {value.title}
                     </span>
                     {activeId === value.slug && (
-                      <ArrowUpRight className="w-5 h-5 text-red-600 animate-pulse" />
+                      <ArrowUpRight className="w-5 h-5 text-brand animate-pulse" />
                     )}
                   </button>
                 ))}
@@ -140,7 +140,7 @@ export function ValuesSection() {
               >
                 {/* Mobile Title (Visible only on mobile) */}
                 <div className="lg:hidden mb-8">
-                  <span className="font-mono text-sm text-red-600 mb-2 block">
+                  <span className="font-mono text-sm text-brand mb-2 block">
                     {value.id}
                   </span>
                   <h2 className="font-heading text-4xl font-bold text-zinc-950">

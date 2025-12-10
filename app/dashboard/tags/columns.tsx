@@ -70,7 +70,7 @@ export const columns: ColumnDef<Tag>[] = [
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className="text-red-600"
+                            className="text-brand"
                             onClick={async () => {
                                 if (confirm('Are you sure you want to delete this tag?')) {
                                     await deleteTag(tag.id);

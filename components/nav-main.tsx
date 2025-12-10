@@ -43,7 +43,7 @@ export function NavMain({
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                   {item.badge ? (
-                    <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white">
+                    <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-brand text-[10px] font-medium text-white">
                       {item.badge}
                     </span>
                   ) : null}

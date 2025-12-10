@@ -84,11 +84,11 @@ export function VisionMissionSection() {
                         <article
                             key={mission.id}
                             ref={(el) => { missionRefs.current[index] = el; }}
-                            className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 frosted-glass/70 hover:border-t-red-600 hover:scale-[1.02]"
+                            className="group border-t border-zinc-200 opacity-0 translate-y-4 transition-all duration-500 frosted-glass/70 hover:border-t-brand hover:scale-[1.02]"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 p-8">
                                 <div className="space-y-2 flex gap-4">
-                                    <span className="font-mono text-md text-zinc-400 group-hover:text-red-600 transition-colors">
+                                    <span className="font-mono text-md text-zinc-400 group-hover:text-brand transition-colors">
                                         {mission.id}
                                     </span>
                                     <h3 className="font-heading text-2xl font-bold text-zinc-900">

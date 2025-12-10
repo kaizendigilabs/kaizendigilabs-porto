@@ -91,7 +91,7 @@ export const columns: ColumnDef<FAQ>[] = [
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className="text-red-600 cursor-pointer"
+                            className="text-brand cursor-pointer"
                             onClick={async () => {
                                 if (confirm('Are you sure you want to delete this FAQ?')) {
                                     try {

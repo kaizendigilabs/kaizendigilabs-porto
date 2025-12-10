@@ -111,7 +111,7 @@ export const columns: ColumnDef<ProjectRecord>[] = [
                             <Link href={`/dashboard/projects/${project.slug}`}>Edit</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className="text-red-600 focus:text-red-600"
+                            className="text-brand focus:text-brand"
                             onClick={async () => {
                                 const result = await deleteProject(project.id)
                                 if (result?.error) {

@@ -130,7 +130,7 @@ export const columns: ColumnDef<ArticleWithPublished>[] = [
                             <Link href={`/dashboard/articles/${article.slug}`}>Edit</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className="text-red-600 focus:text-red-600"
+                            className="text-brand focus:text-brand"
                             onClick={async () => {
                                 // Call server action
                                 const result = await deleteArticle(article.slug) // Using slug as ID for now or need ID

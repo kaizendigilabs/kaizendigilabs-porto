@@ -189,7 +189,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <button className="p-3 rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-red-600 hover:border-red-600 transition-all shadow-sm">
+            <button className="p-3 rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-brand hover:border-brand transition-all shadow-sm">
               <Share2 className="w-5 h-5" />
             </button>
             <button className="p-3 rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:border-zinc-900 transition-all shadow-sm">

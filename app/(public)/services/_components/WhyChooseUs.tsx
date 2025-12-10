@@ -181,7 +181,7 @@ export function WhyChooseUs() {
 
                         {/* SLIDING ACTIVE INDICATOR */}
                         <div
-                            className="absolute left-0 w-[2px] bg-red-600 transition-all duration-500 ease-out"
+                            className="absolute left-0 w-[2px] bg-brand transition-all duration-500 ease-out"
                             style={{
                                 top: `${indicatorStyle.top}px`,
                                 height: `${indicatorStyle.height}px`,
