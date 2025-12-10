@@ -30,7 +30,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kaizen Digilabs",
+  title: "Kaizen Digital Labs",
   description: "Building digital solutions that evolve with purpose.",
 };
 

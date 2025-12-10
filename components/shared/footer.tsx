@@ -98,7 +98,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="py-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-zinc-600 uppercase tracking-wider">
-          <p>© {new Date().getFullYear()} Kaizen Digilabs.</p>
+          <p>© {new Date().getFullYear()} Kaizen Digital Labs.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-zinc-400 transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-zinc-400 transition-colors">Terms</Link>

@@ -22,7 +22,7 @@ export function IntroSection() {
           {/* Right side: Multi-paragraph narrative */}
           <div className="space-y-6 text-zinc-600 leading-relaxed">
             <p className="text-lg">
-              Founded in 2025, Kaizen Digilabs grew from a simple belief that continuous improvement is not only a philosophy, but a daily practice that changes how businesses connect with their audiences.
+              Founded in 2025, PT Kaizen Digital Labs (Indonesia Ltd.) grew from a simple belief that continuous improvement is not only a philosophy, but a daily practice that changes how businesses connect with their audiences.
             </p>
 
             <p className='text-lg'>
