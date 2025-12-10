@@ -11,7 +11,7 @@ export default async function Projects() {
   const supabase = await createServerClient();
   const { data: projects } = await supabase
     .from('projects')
-    .select('*')
+    .select('*, testimonials(name, company)')
     .eq('published', true)
     .order('year', { ascending: false });
 

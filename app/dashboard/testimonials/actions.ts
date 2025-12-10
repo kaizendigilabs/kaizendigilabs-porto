@@ -8,12 +8,11 @@ export async function createTestimonial(formData: FormData) {
     const supabase = await createServerClient();
 
     const data = {
+        project_id: formData.get('project_id') as string, // Required now
         name: formData.get('name') as string,
         role: formData.get('role') as string,
         company: formData.get('company') as string,
         content: formData.get('content') as string,
-        avatar: formData.get('avatar') as string | null,
-        rating: parseInt(formData.get('rating') as string) || 5,
         published: formData.get('published') === 'true' || formData.get('published') === 'on',
     };
 
@@ -35,8 +34,6 @@ export async function updateTestimonial(id: string, formData: FormData) {
         role: formData.get('role') as string,
         company: formData.get('company') as string,
         content: formData.get('content') as string,
-        avatar: formData.get('avatar') as string | null,
-        rating: parseInt(formData.get('rating') as string) || 5,
         published: formData.get('published') === 'true' || formData.get('published') === 'on',
         updated_at: new Date().toISOString(),
     };

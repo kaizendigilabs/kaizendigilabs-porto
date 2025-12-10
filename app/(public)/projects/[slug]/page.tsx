@@ -57,28 +57,18 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
     const { data: project } = await supabase
         .from('projects')
-        .select('*')
+        .select('*, testimonials(name, company, role)')
         .eq('slug', slug)
         .eq('published', true)
         .single();
 
-    // Fetch services for this project via junction table
-    const { data: projectServices } = await supabase
-        .from('project_services')
-        .select(`
-            service_id,
-            services (
-                id,
-                title
-            )
-        `)
-        .eq('project_id', project?.id || '');
-
-    const services = projectServices?.map(ps => (ps.services as { id: string; title: string } | null)?.title).filter((title): title is string => Boolean(title)) || [];
-
     if (!project) {
         notFound();
     }
+
+    const { testimonials } = project as unknown as { testimonials: { name: string; company: string | null; role: string | null }[] | null };
+    const clientName = testimonials?.[0]?.name;
+    const clientCompany = testimonials?.[0]?.company;
 
     return (
         <>
@@ -111,17 +101,24 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                             <div className="grid grid-cols-2 gap-8 border-t border-zinc-200 pt-8">
                                 <div>
                                     <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Client</h3>
-                                    <p className="font-medium text-zinc-900">{project.client || 'Confidential'}</p>
+                                    <p className="font-medium text-zinc-900">
+                                        {clientName || 'Confidential'}
+                                        {clientCompany && <span className="text-zinc-500 block text-xs mt-0.5">{clientCompany}</span>}
+                                    </p>
                                 </div>
                                 <div>
                                     <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Year</h3>
                                     <p className="font-medium text-zinc-900">{project.year}</p>
                                 </div>
                                 <div>
+                                    <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Display Order</h3>
+                                    <p className="font-medium text-zinc-900">{project.display_order}</p>
+                                </div>
+                                <div>
                                     <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Services</h3>
                                     <div className="flex flex-wrap gap-2">
-                                        {services.length > 0 ? (
-                                            services.map((service: string) => (
+                                        {(project.services && Array.isArray(project.services) && project.services.length > 0) ? (
+                                            project.services.map((service: string) => (
                                                 <span key={service} className="font-medium text-zinc-900">{service}</span>
                                             ))
                                         ) : (
@@ -130,8 +127,18 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Category</h3>
-                                    <p className="font-medium text-zinc-900">{project.category}</p>
+                                    <h3 className="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-2">Tech Stack</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {(project.tech_stack && Array.isArray(project.tech_stack) && project.tech_stack.length > 0) ? (
+                                            project.tech_stack.map((tech: string) => (
+                                                <span key={tech} className="text-xs font-mono border border-zinc-200 px-2 py-1 rounded-sm text-zinc-500">
+                                                    {tech}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="text-zinc-400">—</span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -150,8 +157,6 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                         />
                     </div>
                 </div>
-
-
 
                 {/* NEXT PROJECT NAV (Optional - could be implemented later) */}
 

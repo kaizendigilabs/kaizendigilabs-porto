@@ -341,9 +341,9 @@ export type Database = {
           image_url: string | null
           project_link: string | null
           published: boolean | null
+          services: string[] | null
           slug: string
           tech_stack: string[] | null
-          testimonial_id: string | null
           title: string
           updated_at: string
           views: number
@@ -357,9 +357,9 @@ export type Database = {
           image_url?: string | null
           project_link?: string | null
           published?: boolean | null
+          services?: string[] | null
           slug: string
           tech_stack?: string[] | null
-          testimonial_id?: string | null
           title: string
           updated_at?: string
           views?: number
@@ -373,23 +373,15 @@ export type Database = {
           image_url?: string | null
           project_link?: string | null
           published?: boolean | null
+          services?: string[] | null
           slug?: string
           tech_stack?: string[] | null
-          testimonial_id?: string | null
           title?: string
           updated_at?: string
           views?: number
           year?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "projects_testimonial_id_fkey"
-            columns: ["testimonial_id"]
-            isOneToOne: false
-            referencedRelation: "testimonials"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       roles: {
         Row: {
@@ -480,6 +472,7 @@ export type Database = {
           display_order: number | null
           id: string
           name: string
+          project_id: string
           published: boolean | null
           role: string | null
           updated_at: string
@@ -491,6 +484,7 @@ export type Database = {
           display_order?: number | null
           id?: string
           name: string
+          project_id: string
           published?: boolean | null
           role?: string | null
           updated_at?: string
@@ -502,11 +496,20 @@ export type Database = {
           display_order?: number | null
           id?: string
           name?: string
+          project_id?: string
           published?: boolean | null
           role?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "testimonials_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -543,6 +546,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_unique_tech_stacks: {
+        Args: never
+        Returns: {
+          tech: string
+        }[]
+      }
       has_role: { Args: { role_name: string; uid: string }; Returns: boolean }
       increment_article_views: {
         Args: { article_id: string }
