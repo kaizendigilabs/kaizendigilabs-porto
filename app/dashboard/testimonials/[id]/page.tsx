@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ImageUpload } from '@/components/image-upload';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -84,35 +84,7 @@ export default async function EditTestimonialPage({ params }: { params: Promise<
                     />
                 </div>
 
-                <div className="space-y-2">
-                    {/* Hidden input to receive uploaded image URL */}
-                    <input type="hidden" name="avatar" id="avatar_hidden" defaultValue={testimonial.avatar || ''} />
-                    <Label>Profile Image (Optional)</Label>
-                    <ImageUpload
-                        value={testimonial.avatar || null}
-                        onChange={(url) => {
-                            const hidden = document.getElementById('avatar_hidden') as HTMLInputElement;
-                            if (hidden) hidden.value = url ?? '';
-                        }}
-                        bucket="testimonial-images"
-                        disabled={false}
-                    />
-                </div>
 
-                <div className="space-y-2">
-                    <Label htmlFor="rating">Rating (1-5)</Label>
-                    <Input
-                        id="rating"
-                        name="rating"
-                        type="number"
-                        defaultValue={testimonial.rating ?? 5}
-                        min="1"
-                        max="5"
-                    />
-                    <p className="text-sm text-muted-foreground">
-                        Star rating from 1 to 5
-                    </p>
-                </div>
 
                 <div className="flex items-center space-x-2">
                     <Switch id="published" name="published" defaultChecked={testimonial.published ?? false} />

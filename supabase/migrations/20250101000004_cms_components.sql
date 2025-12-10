@@ -1,0 +1,45 @@
+/**
+ * CMS: COMPONENTS
+ *
+ * This migration establishes miscellaneous CMS components.
+ *
+ * CONTENTS:
+ * 1. FAQs: Frequently asked questions.
+ * 2. RLS Policies: Row Level Security.
+ */
+
+-- 1. FAQS
+create table if not exists public.faqs (
+  id          uuid primary key default gen_random_uuid(),
+  question    text not null,
+  answer      text not null,
+  published   boolean default false,
+  display_order integer default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+-- 2. RLS POLICIES
+alter table public.faqs enable row level security;
+
+-- FAQS
+create policy "FAQs are viewable by everyone"
+on public.faqs for select
+to anon, authenticated
+using (true);
+
+create policy "FAQs are insertable by admin only"
+on public.faqs for insert
+to authenticated
+with check (public.is_admin());
+
+create policy "FAQs are updateable by admin only"
+on public.faqs for update
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+create policy "FAQs are deletable by admin only"
+on public.faqs for delete
+to authenticated
+using (public.is_admin());

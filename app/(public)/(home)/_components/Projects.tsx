@@ -88,7 +88,7 @@ function ProjectItem({ project }: { project: Tables<'projects'> }) {
 
       <div className="flex items-center gap-4 z-10 relative">
         <span className="font-mono text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-900 transition-all">
-          {project.category}
+          {project.services?.[0]}
         </span>
       </div>
     </Link>

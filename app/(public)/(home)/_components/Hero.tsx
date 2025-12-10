@@ -37,7 +37,7 @@ export function HeroSection() {
         {/* Content Right */}
         <div className="flex flex-col relative z-10 space-y-6 lg:space-y-8 items-end lg:items-start">
           {/* Red Accent Line */}
-          <div className="w-12 h-1 bg-red-600 mb-8 lg:mb-12" />
+          <div className="w-12 h-1 bg-brand mb-8 lg:mb-12" />
 
           <p className="max-w-md lg:max-w-xl text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-tight font-medium text-zinc-800 text-end lg:text-start">
             Unlock your business potential with digital products that actually ship and keep improving. <br />

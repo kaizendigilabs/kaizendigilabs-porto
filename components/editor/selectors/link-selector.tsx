@@ -69,7 +69,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
                             size="sm"
                             variant="ghost"
                             type="button"
-                            className="flex h-8 items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
+                            className="flex h-8 items-center rounded-sm p-1 text-brand transition-all hover:bg-muted/10 dark:hover:bg-muted/10"
                             onClick={() => {
                                 editor.chain().focus().unsetLink().run();
                                 onOpenChange(false);

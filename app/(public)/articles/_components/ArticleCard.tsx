@@ -22,7 +22,7 @@ export function ArticleCard({ article, variant, className }: ArticleCardProps) {
                         <span>{article.date}</span>
                     </div>
 
-                    <Link href={`/articles/${article.slug}`} className="group-hover:text-red-600 transition-colors">
+                    <Link href={`/articles/${article.slug}`} className="group-hover:text-brand transition-colors">
                         <h3 className="font-heading text-xl md:text-2xl font-bold text-zinc-900 leading-tight line-clamp-2">
                             {article.title}
                         </h3>
@@ -80,7 +80,7 @@ export function ArticleCard({ article, variant, className }: ArticleCardProps) {
                     </span>
                 </div>
 
-                <Link href={`/articles/${article.slug}`} className="group-hover:text-red-600 transition-colors duration-300">
+                <Link href={`/articles/${article.slug}`} className="group-hover:text-brand transition-colors duration-300">
                     <h3 className="font-heading text-xl font-bold text-zinc-900 mb-3 leading-tight line-clamp-2">
                         {article.title}
                     </h3>
@@ -96,7 +96,7 @@ export function ArticleCard({ article, variant, className }: ArticleCardProps) {
                     </span>
                     <Link
                         href={`/articles/${article.slug}`}
-                        className="flex items-center gap-1 text-xs font-bold text-zinc-900 group-hover:text-red-600 transition-colors"
+                        className="flex items-center gap-1 text-xs font-bold text-zinc-900 group-hover:text-brand transition-colors"
                     >
                         Read
                         <ArrowUpRight className="w-3 h-3" />

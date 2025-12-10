@@ -62,7 +62,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
 
                         <Link
                             href={`/articles/${article.slug}`}
-                            className="group flex items-center gap-2 text-sm font-bold text-zinc-900 hover:text-red-600 transition-colors"
+                            className="group flex items-center gap-2 text-sm font-bold text-zinc-900 hover:text-brand transition-colors"
                         >
                             Read Article
                             <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

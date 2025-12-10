@@ -137,14 +137,14 @@ export function ImageUpload({ value, onChange, bucket, disabled }: ImageUploadPr
                     <div className="flex flex-col items-center justify-center text-center space-y-2">
                         {isUploading ? (
                             <>
-                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600" />
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand" />
                                 <p className="text-sm text-zinc-600">Uploading...</p>
                             </>
                         ) : (
                             <>
                                 <div className="rounded-full bg-zinc-100 p-3">
                                     {isDragging ? (
-                                        <Upload className="h-6 w-6 text-red-600" />
+                                        <Upload className="h-6 w-6 text-brand" />
                                     ) : (
                                         <ImageIcon className="h-6 w-6 text-zinc-600" />
                                     )}

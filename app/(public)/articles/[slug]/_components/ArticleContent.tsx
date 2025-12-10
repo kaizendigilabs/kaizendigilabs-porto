@@ -84,7 +84,7 @@ function BlockRenderer({ block }: { block: TiptapNode }) {
             );
         case 'blockquote':
             return (
-                <blockquote className="border-l-4 border-red-600 pl-6 py-2 my-8 bg-zinc-50 italic text-xl text-zinc-800 font-serif">
+                <blockquote className="border-l-4 border-brand pl-6 py-2 my-8 bg-zinc-50 italic text-xl text-zinc-800 font-serif">
                     {block.content?.map((item, i) => <BlockRenderer key={i} block={item} />)}
                 </blockquote>
             );
@@ -125,8 +125,8 @@ function TextRenderer({ content }: { content?: TiptapNode[] }) {
                         node.marks.forEach(mark => {
                             if (mark.type === 'bold') text = <strong key={mark.type}>{text}</strong>;
                             if (mark.type === 'italic') text = <em key={mark.type}>{text}</em>;
-                            if (mark.type === 'code') text = <code key={mark.type} className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono text-red-600">{text}</code>;
-                            if (mark.type === 'link') text = <a key={mark.type} href={mark.attrs?.href as string} target="_blank" rel="noopener noreferrer" className="text-red-600 hover:underline">{text}</a>;
+                            if (mark.type === 'code') text = <code key={mark.type} className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono text-brand">{text}</code>;
+                            if (mark.type === 'link') text = <a key={mark.type} href={mark.attrs?.href as string} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">{text}</a>;
                         });
                     }
                     return <span key={index}>{text}</span>;

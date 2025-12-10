@@ -7,20 +7,23 @@ import { cn } from '@/lib/utils';
 import { Tables } from '@/lib/types/database';
 
 // =============================================================
-// PROJECTS DATA
+// TYPES
 // =============================================================
 
-// =============================================================
-// PROJECTS DATA
-// =============================================================
+// Extend the base type to include the joined testimonial data
+interface ProjectWithDetails extends Tables<'projects'> {
+  testimonials: { name: string; company: string | null }[] | null;
+}
 
 // Helpers
-function getCategories(projects: Tables<'projects'>[]): string[] {
+function getCategories(projects: ProjectWithDetails[]): string[] {
   const set = new Set<string>();
   for (const p of projects) {
-    if (p.category) set.add(p.category);
+    if (p.services && Array.isArray(p.services)) {
+      p.services.forEach((s: string) => set.add(s.trim()));
+    }
   }
-  return ['All', ...Array.from(set)];
+  return ['All', ...Array.from(set).sort()];
 }
 
 // =========================
@@ -28,7 +31,7 @@ function getCategories(projects: Tables<'projects'>[]): string[] {
 // =========================
 
 interface ProjectSectionProps {
-  projects: Tables<'projects'>[];
+  projects: ProjectWithDetails[];
 }
 
 export function ProjectSection({ projects }: ProjectSectionProps) {
@@ -39,7 +42,9 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'All') return projects;
-    return projects.filter((p) => p.category === activeCategory);
+    return projects.filter((p) => 
+      p.services && Array.isArray(p.services) && p.services.some((s: string) => s.trim() === activeCategory)
+    );
   }, [activeCategory, projects]);
 
   const handleCategoryChange = (category: string) => {
@@ -88,12 +93,12 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                       className={cn(
                         "text-left text-sm font-mono tracking-widest uppercase transition-all duration-300 flex items-center gap-3 group cursor-pointer",
                         isActive
-                          ? "text-red-600 font-bold translate-x-2"
+                          ? "text-brand font-bold translate-x-2"
                           : "text-zinc-400 hover:text-zinc-900 hover:translate-x-1"
                       )}
                     >
                       {isActive && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
                       )}
                       {category}
                     </button>
@@ -115,7 +120,7 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
                     className={cn(
                       "px-4 py-2 text-xs font-mono tracking-widest uppercase border transition-colors",
                       isActive
-                        ? "border-red-600 text-red-600 font-bold bg-red-50"
+                        ? "border-brand text-brand font-bold bg-muted"
                         : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
                     )}
                   >
@@ -175,12 +180,14 @@ export function ProjectSection({ projects }: ProjectSectionProps) {
 // ==============================
 
 interface ProjectCardProps {
-  project: Tables<'projects'>;
+  project: ProjectWithDetails;
   className?: string;
   style?: React.CSSProperties;
 }
 
 function ProjectCard({ project, className, style }: ProjectCardProps) {
+  const clientName = project.testimonials?.[0]?.name;
+
   return (
     <article className={cn("group flex flex-col gap-6 cursor-pointer", className)} style={style}>
       {/* IMAGE CONTAINER */}
@@ -199,21 +206,38 @@ function ProjectCard({ project, className, style }: ProjectCardProps) {
       </div>
 
       {/* INFO */}
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-3">
         <div className="flex items-baseline justify-between border-b border-zinc-200 pb-4 transition-colors group-hover:border-zinc-900">
-          <h3 className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 group-hover:text-red-600 transition-colors duration-300">
+          <h3 className="font-heading text-2xl lg:text-3xl font-bold text-zinc-900 group-hover:text-brand transition-colors duration-300">
             {project.title}
           </h3>
-          <ArrowUpRight className="w-5 h-5 text-zinc-400 group-hover:text-red-600 transition-colors duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transform" />
+          <ArrowUpRight className="w-5 h-5 text-zinc-400 group-hover:text-brand transition-colors duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transform" />
         </div>
 
-        <div className="flex justify-between items-center pt-2">
-          <span className="font-mono text-xs tracking-widest uppercase text-zinc-500">
-            {project.category}
-          </span>
-          <span className="font-mono text-xs text-zinc-400">
-            {project.year}
-          </span>
+        <div className="flex justify-between items-start gap-4">
+           {/* TECH STACK or SERVICES */}
+           <div className="flex flex-wrap gap-2">
+             {project.tech_stack && project.tech_stack.length > 0 ? (
+               project.tech_stack.slice(0, 3).map(tech => (
+                 <span key={tech} className="text-xs font-mono border border-zinc-200 px-2 py-1 rounded-sm text-zinc-500">
+                   {tech}
+                 </span>
+               ))
+             ) : (
+                <span className="font-mono text-xs tracking-widest uppercase text-zinc-500">
+                    {project.services?.[0] || 'Design & Dev'}
+                </span>
+             )}
+           </div>
+
+          <div className="flex flex-col items-end">
+            <span className="font-mono text-xs text-zinc-400">
+              {project.year}
+            </span>
+            {clientName && (
+                null
+            )}
+           </div>
         </div>
       </div>
     </article>

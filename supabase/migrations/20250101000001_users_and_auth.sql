@@ -1,25 +1,15 @@
 /**
- * CORE SCHEMA
+ * USERS AND AUTH
  *
- * This migration establishes the core identity and access management (IAM) layer.
+ * This migration establishes profiles, roles, and user management.
  *
  * CONTENTS:
- * 1. Extensions: pg_trgm for fuzzy search.
- * 2. Profiles: User profile data synced with auth.users.
- * 3. RBAC: Roles and User_Roles tables for permission management.
- * 4. Security: Helper functions (has_role, is_admin) and strict RLS policies.
- *
- * SECURITY NOTES:
- * - All helper functions use SECURITY DEFINER and SET search_path = public.
- * - RLS is enabled on all tables.
- * - Public access is denied by default; explicit policies grant access.
- * - Admin role is required for sensitive operations.
+ * 1. Profiles: User profile data.
+ * 2. RBAC: Roles and User_Roles tables.
+ * 3. RLS: Policies for profiles and roles.
  */
 
--- 1. EXTENSIONS
-create extension if not exists "pg_trgm" with schema extensions;
-
--- 2. PROFILES
+-- 1. PROFILES
 create table if not exists public.profiles (
   user_id    uuid primary key references auth.users(id) on delete cascade,
   full_name  text,
@@ -49,14 +39,7 @@ create index if not exists idx_profiles_email_trgm
   on public.profiles
   using gin (email extensions.gin_trgm_ops);
 
--- Trigger to update updated_at
-create or replace function public.tg_set_updated_at()
-returns trigger language plpgsql set search_path = public as $$
-begin
-  new.updated_at := now();
-  return new;
-end$$;
-
+-- Trigger to update updated_at (uses function from core_setup)
 create trigger trg_profiles_updated_at
 before update on public.profiles
 for each row execute function public.tg_set_updated_at();
@@ -97,7 +80,7 @@ after update of email on auth.users
 for each row execute function public.sync_profile_email();
 
 
--- 3. RBAC (Roles & User Roles)
+-- 2. RBAC (Roles & User Roles)
 create table if not exists public.roles (
   id   uuid primary key default gen_random_uuid(),
   name text not null unique
@@ -111,72 +94,12 @@ create table if not exists public.user_roles (
 create index if not exists idx_user_roles_role_id on public.user_roles(role_id);
 create index if not exists idx_roles_name on public.roles(name);
 
-
--- 4. SECURITY HELPERS
-create or replace function public.has_role(uid uuid, role_name text)
-returns boolean
-language plpgsql
-security definer
-set search_path = public
-stable
-as $$
-begin
-  return exists (
-    select 1
-    from public.user_roles ur
-    join public.roles r on r.id = ur.role_id
-    where ur.user_id = uid
-      and r.name = role_name
-  );
-end;
-$$;
-
-create or replace function public.is_admin()
-returns boolean
-language plpgsql
-security definer
-set search_path = public
-stable
-as $$
-begin
-  return public.has_role((select auth.uid()), 'admin');
-end;
-$$;
-
--- Guard: Prevent deleting the last admin
-create or replace function public.tg_guard_last_admin()
-returns trigger language plpgsql security definer set search_path=public as $$
-declare v_admin_role_id uuid; v_count int;
-begin
-  select id into v_admin_role_id from public.roles where name='admin' limit 1;
-
-  -- Only check if we are touching admin roles
-  if (tg_op = 'DELETE' and old.role_id = v_admin_role_id) or 
-     (tg_op = 'UPDATE' and old.role_id = v_admin_role_id and new.role_id <> v_admin_role_id) then
-     
-    select count(*) into v_count
-    from public.user_roles
-    where role_id = v_admin_role_id;
-
-    if v_count <= 1 then
-      raise exception 'Cannot remove the last admin user.';
-    end if;
-  end if;
-
-  if tg_op = 'DELETE' then return old; end if;
-  return new;
-end$$;
-
 create trigger trg_guard_last_admin
 before delete or update of role_id on public.user_roles
 for each row execute function public.tg_guard_last_admin();
 
--- Grant execute permissions
-grant execute on function public.has_role(uuid, text) to authenticated;
-grant execute on function public.is_admin() to authenticated;
 
-
--- 5. RLS POLICIES
+-- 3. RLS POLICIES
 alter table public.profiles enable row level security;
 alter table public.roles enable row level security;
 alter table public.user_roles enable row level security;

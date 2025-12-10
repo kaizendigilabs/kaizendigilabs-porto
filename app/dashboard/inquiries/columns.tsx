@@ -178,7 +178,7 @@ export const columns: ColumnDef<InquiryRecord>[] = [
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className="text-red-600 focus:text-red-600"
+                            className="text-brand focus:text-brand"
                             onClick={async () => {
                                 const result = await deleteInquiry(inquiry.id)
                                 if (result?.error) {

@@ -16,8 +16,7 @@ interface Testimonial {
   role: string | null;
   company: string | null;
   content: string;
-  rating: number | null;
-  avatar: string | null;
+
 }
 
 interface TestimonialSectionProps {

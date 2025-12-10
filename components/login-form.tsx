@@ -111,7 +111,7 @@ export function LoginForm() {
 
         {/* Footer */}
         <p className="mt-4 text-center text-xs text-zinc-500">
-          © 2025 Kaizen Digital Labs. All rights reserved.
+          © 2025 PT Kaizen Digital Labs. All rights reserved.
         </p>
       </div>
     </div>

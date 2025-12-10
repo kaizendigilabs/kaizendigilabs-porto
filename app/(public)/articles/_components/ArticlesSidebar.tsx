@@ -89,7 +89,7 @@ export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
             {topInsights.map((insight) => (
               <li key={insight.slug} className="group">
                 <Link href={`/articles/${insight.slug}`} className="flex gap-3 items-center">
-                  <span className="font-mono text-xl text-zinc-200 font-bold leading-none group-hover:text-red-600 transition-colors">
+                  <span className="font-mono text-xl text-zinc-200 font-bold leading-none group-hover:text-brand transition-colors">
                     0{insight.index}
                   </span>
                   <span className="font-heading text-zinc-700 font-bold leading-tight group-hover:text-zinc-900 transition-colors">
@@ -139,7 +139,7 @@ export function ArticlesSidebar({ articles }: ArticlesSidebarProps) {
           />
           <button
             type="submit"
-            className="w-full px-3 py-2 text-sm font-bold bg-zinc-900 text-white hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+            className="w-full px-3 py-2 text-sm font-bold bg-zinc-900 text-white hover:bg-brand transition-colors flex items-center justify-center gap-2"
           >
             Subscribe
             <ArrowUpRight className="w-3 h-3" />

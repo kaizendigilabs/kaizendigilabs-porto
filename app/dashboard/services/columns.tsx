@@ -95,7 +95,7 @@ export const columns: ColumnDef<ServiceRecord>[] = [
                             <Link href={`/dashboard/services/${service.slug}`}>Edit</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className="text-red-600 focus:text-red-600"
+                            className="text-brand focus:text-brand"
                             onClick={async () => {
                                 const result = await deleteService(service.id)
                                 if (result?.error) {

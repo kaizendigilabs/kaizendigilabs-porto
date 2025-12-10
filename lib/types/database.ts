@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "13.0.5"
-  }
   graphql_public: {
     Tables: {
       [_ in never]: never
@@ -339,48 +334,48 @@ export type Database = {
       }
       projects: {
         Row: {
-          category: string | null
-          client: string | null
           created_at: string
           description: string | null
           display_order: number | null
           id: string
           image_url: string | null
-          link: string | null
+          project_link: string | null
           published: boolean | null
+          services: string[] | null
           slug: string
+          tech_stack: string[] | null
           title: string
           updated_at: string
           views: number
           year: string | null
         }
         Insert: {
-          category?: string | null
-          client?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
           id?: string
           image_url?: string | null
-          link?: string | null
+          project_link?: string | null
           published?: boolean | null
+          services?: string[] | null
           slug: string
+          tech_stack?: string[] | null
           title: string
           updated_at?: string
           views?: number
           year?: string | null
         }
         Update: {
-          category?: string | null
-          client?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
           id?: string
           image_url?: string | null
-          link?: string | null
+          project_link?: string | null
           published?: boolean | null
+          services?: string[] | null
           slug?: string
+          tech_stack?: string[] | null
           title?: string
           updated_at?: string
           views?: number
@@ -471,45 +466,50 @@ export type Database = {
       }
       testimonials: {
         Row: {
-          avatar: string | null
           company: string | null
           content: string
           created_at: string
           display_order: number | null
           id: string
           name: string
+          project_id: string
           published: boolean | null
-          rating: number | null
           role: string | null
           updated_at: string
         }
         Insert: {
-          avatar?: string | null
           company?: string | null
           content: string
           created_at?: string
           display_order?: number | null
           id?: string
           name: string
+          project_id: string
           published?: boolean | null
-          rating?: number | null
           role?: string | null
           updated_at?: string
         }
         Update: {
-          avatar?: string | null
           company?: string | null
           content?: string
           created_at?: string
           display_order?: number | null
           id?: string
           name?: string
+          project_id?: string
           published?: boolean | null
-          rating?: number | null
           role?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "testimonials_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -546,6 +546,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_unique_tech_stacks: {
+        Args: never
+        Returns: {
+          tech: string
+        }[]
+      }
       has_role: { Args: { role_name: string; uid: string }; Returns: boolean }
       increment_article_views: {
         Args: { article_id: string }
@@ -695,3 +701,4 @@ export const Constants = {
     Enums: {},
   },
 } as const
+

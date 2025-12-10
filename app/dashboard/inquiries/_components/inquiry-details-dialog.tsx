@@ -44,6 +44,7 @@ export function InquiryDetailsDialog({ inquiry, open, onOpenChange }: InquiryDet
                 setReplyMessage("");
                 onOpenChange(false);
             }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             toast.error("An unexpected error occurred");
         } finally {

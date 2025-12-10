@@ -56,7 +56,7 @@ export default function ContactPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                                        Full Name <span className="text-red-500">*</span>
+                                        Full Name <span className="text-brand">*</span>
                                     </label>
                                     <input
                                         id="name"
@@ -76,7 +76,7 @@ export default function ContactPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                                        Email <span className="text-red-500">*</span>
+                                        Email <span className="text-brand">*</span>
                                     </label>
                                     <input
                                         id="email"
@@ -131,7 +131,7 @@ export default function ContactPage() {
 
                             <div className="space-y-2">
                                 <label htmlFor="subject" className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                                    Subject <span className="text-red-500">*</span>
+                                    Subject <span className="text-brand">*</span>
                                 </label>
                                 <input
                                     id="subject"
@@ -151,7 +151,7 @@ export default function ContactPage() {
 
                             <div className="space-y-2">
                                 <label htmlFor="message" className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                                    Project Details <span className="text-red-500">*</span>
+                                    Project Details <span className="text-brand">*</span>
                                 </label>
                                 <textarea
                                     id="message"
@@ -193,7 +193,7 @@ export default function ContactPage() {
 
             {/* CENTER KANJI OVERLAY */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0 mix-blend-difference opacity-20">
-                <span className="[writing-mode:vertical-rl] font-body font-bold text-[12rem] sm:text-[15rem] lg:text-[20rem] xl:text-[25rem] leading-none text-zinc-600">
+                <span className="[writing-mode:vertical-rl] font-body font-bold text-[12rem] sm:text-[15rem] lg:text-[22rem] leading-none text-zinc-600">
                     連絡
                 </span>
             </div>

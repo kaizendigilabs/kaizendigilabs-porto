@@ -32,7 +32,7 @@ export function PageHero({ title, description, kanji, className }: PageHeroProps
             <div className="bg-zinc-50 text-zinc-950 p-8 lg:p-24 flex flex-col justify-center">
                 <div className="max-w-xl">
                     {/* Red Accent Line */}
-                    <div className="w-12 h-1 bg-red-600 mb-8 lg:mb-12" />
+                    <div className="w-12 h-1 bg-brand mb-8 lg:mb-12" />
 
                     {description && (
                         <p className="font-body text-lg lg:text-2xl text-zinc-600 leading-relaxed">

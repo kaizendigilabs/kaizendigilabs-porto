@@ -1,12 +1,15 @@
+
 'use client';
 
 import { useState } from 'react';
+
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { ImageUpload } from '@/components/image-upload';
+
 import { createTestimonial } from '../actions';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -14,7 +17,7 @@ import { useRouter } from 'next/navigation';
 
 export default function NewTestimonialPage() {
     const router = useRouter();
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -23,10 +26,7 @@ export default function NewTestimonialPage() {
 
         const formData = new FormData(e.currentTarget);
 
-        // Add image URL to form data if exists
-        if (imageUrl) {
-            formData.set('image_url', imageUrl);
-        }
+
 
         try {
             await createTestimonial(formData);
@@ -99,15 +99,7 @@ export default function NewTestimonialPage() {
                     />
                 </div>
 
-                <div className="space-y-2">
-                    <Label>Profile Image (Optional)</Label>
-                    <ImageUpload
-                        value={imageUrl}
-                        onChange={setImageUrl}
-                        bucket="testimonial-images"
-                        disabled={isSubmitting}
-                    />
-                </div>
+
 
                 <div className="space-y-2">
                     <Label htmlFor="display_order">Display Order</Label>

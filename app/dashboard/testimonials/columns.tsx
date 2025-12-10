@@ -21,8 +21,7 @@ export type Testimonial = {
     role: string | null;
     company: string | null;
     content: string;
-    avatar: string | null;
-    rating: number | null;
+
     published: boolean | null;
     created_at: string;
     updated_at: string;
@@ -66,20 +65,7 @@ export const columns: ColumnDef<Testimonial>[] = [
             );
         },
     },
-    {
-        accessorKey: 'rating',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                >
-                    Rating
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-    },
+
     {
         accessorKey: 'published',
         header: 'Status',
